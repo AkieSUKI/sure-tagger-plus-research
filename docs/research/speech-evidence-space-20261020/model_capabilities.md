@@ -1,6 +1,6 @@
 # Producer → tag 能力与实际发布边界
 
-日期：2026-10-20。`Pxx`=producer，`Cxx`=具体能力claim，`Txx/Rxx/Dxx`见[tag registry](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/tag_registry.md)，`Qxx`见[task coverage](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/task_coverage.md)。S-*来源可在[survey ledger](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_survey.md)定位官方URL、固定commit/unknown、许可证和缓存；LA-*见[本地审计](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/local_audit.md)。完整公开字段映射及gender/C50冲突见[schema_mapping](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/schema_mapping.md)。
+日期：2026-10-20。`Pxx`=producer，`Cxx`=具体能力claim，`Txx/Rxx/Dxx`见[tag registry](tag_registry.md)，`Qxx`见[task coverage](task_coverage.md)。S-*来源可在[survey ledger](model_survey.md)定位官方URL、固定commit/unknown、许可证和缓存；LA-*见[本地审计](local_audit.md)。完整公开字段映射及gender/C50冲突见[schema_mapping](schema_mapping.md)。
 
 ## 1. 判断维度
 
@@ -27,8 +27,8 @@
 | C13 / P10 DASS medium AudioSet48.9 | T06 clip/window 527类sigmoid→跨窗max→公共noise/composition投影 | 本地16k mono分窗/末窗补零；无输出强事件时间；ToolResult.confidence固定1.0，不能当已校准置信；AST/HTS-AT蒸馏依赖 | S-DASS + LA-07 code_supported；资产/adapter存在，smoke inventory未healthcheck；质量/成本unknown |
 | C14 / P11 PANNs；P25 BEATs | T06类别分数/T17 audio representation；PANNs决策级模型另有T07 frame-wise SED候选 | PANNs README另列Cnn14_DecisionLevelMax/Avg/Att帧级SED与checkpoint；2s连续片段demo是另一条路径，均需阈值/后处理形成事件；BEATs audio-only representation与AudioSet分类头/CLAP共同空间不同；speaker attribution不支持 | S-PANNs、S-Supp/BEATs documented；PANNs本地asset/adapter，BEATs新增not_run；权重精确license/revision unknown |
 | C15 / P12 DNSMOS | T08：无参考speech quality预测SIG/BAK/OVRL/P808；非SNR/场景识别 | 官方local script16k、9.01s窗、1s hop、短音频重复补足、polyfit后取均值；personalized模式惩罚interfering speaker，定义不等于regular | S-DNSMOS README/script code_supported（本地适配是否完全同参数需进一步核对）；inventory有ONNX/adapter；质量not_run |
-| C16 / P13 Brouhaha | 上游T05+T09+房间C50估计，一次多任务输出；当前specialist normalized evidence仅SNR/C50均值 | 语音覆盖/SNR/C50各自语义；结果包名含speech_activity不证明已保留T05区间。C50≠RT60≠房间名；C50见G02，未强塞T09 | S-Brouhaha README documented；[schema映射§4.3](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/schema_mapping.md) adapter code_supported；本轮not_run；联合成本按一次调用，不重复3次 |
-| C17 / P14 Rec-RIR | reverberant speech→RIR估计；shared main另用RIR派生RT60/C50；specialist normalized evidence仅采样元信息/raw可用标记 | 非场景分类器；不能把shared estimator当specialist已自动执行；README推理需要checkpoint，实际权重兼容/延迟unknown；当前F没有必须使用此高维输出的证据 | S-RecRIR documented；[schema映射§4.3](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/schema_mapping.md)；inventory标asset/adapter但无成功probe；G01/G02 deferred，不占S_core |
+| C16 / P13 Brouhaha | 上游T05+T09+房间C50估计，一次多任务输出；当前specialist normalized evidence仅SNR/C50均值 | 语音覆盖/SNR/C50各自语义；结果包名含speech_activity不证明已保留T05区间。C50≠RT60≠房间名；C50见G02，未强塞T09 | S-Brouhaha README documented；[schema映射§4.3](schema_mapping.md) adapter code_supported；本轮not_run；联合成本按一次调用，不重复3次 |
+| C17 / P14 Rec-RIR | reverberant speech→RIR估计；shared main另用RIR派生RT60/C50；specialist normalized evidence仅采样元信息/raw可用标记 | 非场景分类器；不能把shared estimator当specialist已自动执行；README推理需要checkpoint，实际权重兼容/延迟unknown；当前F没有必须使用此高维输出的证据 | S-RecRIR documented；[schema映射§4.3](schema_mapping.md)；inventory标asset/adapter但无成功probe；G01/G02 deferred，不占S_core |
 | C18 / P15 profile工具 | T10/T11测量+T03/T05/T01→D05 speech rate / relative pitch / volume | Plus≥3s且≥8单位语速才发布；pitch相对F0中位参照，volume均值参照；clean PCM减overlap；不推出性别/情绪 | LA-08 code_supported；本轮无profile GT精度；纯规则成本低但未测具体CPU时间 |
 | C19 / P16 CAM++/ECAPA | T12 embedding/相似度→R02候选身份链接 | 依赖enrollment/clean crop、阈值、域；不能从名字匹配声音；公开gender分类head与embedding不是同能力 | local inventory + S-Supp FunASR documented；本轮对应SV本地质量/完整权重license unknown；按需、非主基底 |
 | C20 / P17 text-language rule/LLM | T01→T04 inferred language，附原文hash/parent IDs | 继承ASR幻觉、翻译、归一化与路由偏置；script规则只能部分辨别语言；不能反过来当独立证据确认同ASR | LA路由与V01语言复核observed；新文本LID生产者选择proposed，不能将所有review视为新增音频LID |
@@ -38,7 +38,7 @@ C01–C21 引用的本地cost仅能从各artifact提取：示例Qwen v2约19s音
 
 ## 3. 扩展producer与统一ID映射
 
-详细claims、源码、许可、输入和未验证限制见[补充调查](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/upstream_supplement.md)；v0.5 总表覆盖补查见 [survey §6](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_survey.md#6-总表覆盖补查v05)。此表保证补充文档局部命名空间可以join主registry；这些新增producer的local_validation均为not_run。
+详细claims、源码、许可、输入和未验证限制见[补充调查](upstream_supplement.md)；v0.5 总表覆盖补查见 [survey §6](model_survey.md#6-总表覆盖补查v05)。此表保证补充文档局部命名空间可以join主registry；这些新增producer的local_validation均为not_run。
 
 | producer ID / 对应补充claim | 本registry映射 | support / 选择 |
 | --- | --- | --- |
@@ -51,7 +51,7 @@ C01–C21 引用的本地cost仅能从各artifact提取：示例Qwen v2约19s音
 | P25 BEATs | T06/T17；clip分类与frame representation各有版本 | documented；conditional；用于strong SED仍需额外头/训练/后处理 |
 | P26 Silero VAD | T05 | documented；conditional替代P09；8/16k、ONNX/PyTorch；上游CPU速度不是本机实测 |
 | P27 MFA | T02，需已有T01文本/字典/声学模型 | documented；conditional方法对照；不同语言模型权重/许可另核验 |
-| P28 Basic Pitch / S-BasicPitch | `t_note_event` 的部分分量：音高、模型预测起止、pitch bend；`predict()` 返回 `note_events`，CSV 为 `start_time_s/end_time_s/pitch_midi/velocity/pitch_bend` | documented + code_supported，部分支持；本地not_run；README建议每次一种乐器，立体声输入下混mono；不支持据此宣称混音逐源/声部归属或可听尾音终点已覆盖；code/checkpoint/release与代码/权重许可核验均unknown，见 [survey §6](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_survey.md#6-总表覆盖补查v05) |
+| P28 Basic Pitch / S-BasicPitch | `t_note_event` 的部分分量：音高、模型预测起止、pitch bend；`predict()` 返回 `note_events`，CSV 为 `start_time_s/end_time_s/pitch_midi/velocity/pitch_bend` | documented + code_supported，部分支持；本地not_run；README建议每次一种乐器，立体声输入下混mono；不支持据此宣称混音逐源/声部归属或可听尾音终点已覆盖；code/checkpoint/release与代码/权重许可核验均unknown，见 [survey §6](model_survey.md#6-总表覆盖补查v05) |
 | P29 SpeechBrain ECAPA/x-vector + 自动谱聚类 / DA-C01 | 波形片段→embedding→非oracle人数cosine谱聚类；估计簇数→`t_speaker_count` `[C]`，不同于已有T03统计的D01 | 官方AMI recipe code_supported；需提取内部簇数并明确分段来源；oracle人数/参考分段不能隐为音频感知；与同一聚类生成的timeline同源；local not_run，权重revision unknown |
 | P30 pyannote 1.1专用OSD / DA-C02 | audio→non_overlap/overlap帧分数→阈值/合并→`t_overlap_interval`；对比已有T03求交的D02 | task/pipeline code_supported；具体可取得checkpoint及现代环境未核实，属 `[C/H]` 研究路径；不提供speaker pair，比例还需同合同分母；不是community-1同一帧分数的另一个包装 |
 | P31 pyannote 1.1专用SCD / DA-C03 | audio→变化分类/三角回归→峰提取→`t_speaker_change`，对比timeline continuity规则 | task/pipeline code_supported；具体checkpoint未核实，`[C/H]`；不返回变化双方ID，不证明发言意图；边界合同须与旧change规则对齐；local not_run |
@@ -60,7 +60,7 @@ C01–C21 引用的本地cost仅能从各artifact提取：示例Qwen v2约19s音
 
 SUP-C10–12 是评测合同，不作为音频producer计入P；SUP-T06是情绪表征，SUP-T07是韵律特征，SUP-T08是音频文本相似度，按上表显式关联而不混同。
 
-DA-C01–05 的来源、revision/许可与精确输出合同见 [survey §7](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_survey.md#7-d_直接感知补查v06) 和 [15项审查](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_direct_audit.md)。本次P编号共33个，包含组合工具/任务路径，不等于33个已部署或互相独立的checkpoint。
+DA-C01–05 的来源、revision/许可与精确输出合同见 [survey §7](model_survey.md#7-d_直接感知补查v06) 和 [15项审查](d_direct_audit.md)。本次P编号共33个，包含组合工具/任务路径，不等于33个已部署或互相独立的checkpoint。
 
 `t_word_count` / `t_rt60` 是恢复的 `[H]` 候选，尚无本轮确认的producer ID：前者只核实BiGRU项目README的声学回归声明；后者BERP关键RT60输出实现不可达。CountNet的窗口最大同时人数、Smart Turn右端完成性、VAP未来活动投射和SEP-28k人工票数均不冒充这次要恢复的目标字段，相关排除来源见审查分报告。
 
@@ -74,7 +74,7 @@ DA-C01–05 的来源、revision/许可与精确输出合同见 [survey §7](../
 | FireRed fallback | smoke use_half=True，CTC bfloat16不支持后插值 | Plus use_half=False；结果是否逐条发生插值未统计 | 只声明已核验smoke路径，不误称Plus所有时间都是假。LA-02 |
 | timeline rules | 原正式run旧resolver | current/replay `v2.0-shadow.2`，100ms atomic-overlap floor等 | raw observations一致也可能字段不同；rule版本是独立变量。LA-06 |
 | profiles | shared绝对140/220Hz与音量中位数、zh_char_per_sec | Plus相对音高、音量均值参照、char_per_sec等 | 相同字段名不能直接评分/平均；需显式迁移map。LA-08 |
-| language发布权限 | 共享DeepSeek评测driver的`resolve_language`允许基于transcript复核公开language，且记录变更/依赖复核状态 | Plus采用自己的语言复核、route与policy，Planner不能直接改写ASR或结构字段 | 不能概括为所有pipeline的结构字段绝对只读；text-LID始终是依赖转写的推断。见[schema_mapping](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/schema_mapping.md) |
+| language发布权限 | 共享DeepSeek评测driver的`resolve_language`允许基于transcript复核公开language，且记录变更/依赖复核状态 | Plus采用自己的语言复核、route与policy，Planner不能直接改写ASR或结构字段 | 不能概括为所有pipeline的结构字段绝对只读；text-LID始终是依赖转写的推断。见[schema_mapping](schema_mapping.md) |
 
 ## 5. 证据依赖与误差相关性
 

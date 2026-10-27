@@ -5,6 +5,7 @@
 - 63 个模型或工具代号、53 条组合路径、51 类音频标签。
 - 支持预设、多选、搜索、L1–L6 筛选、标签详情及组合 JSON 导出。
 - 独立展示含 H 的候选路径；6 类尚无确认模型的标签不计入覆盖。
+- [跨标签检查](https://akiesuki.github.io/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/visualization/#checks) 展示 8 条互检链路，区分结构一致、跨标签一致与独立验证，并说明检查条件及证据边界。
 - 对照 2026-10-09 公共 schema，47 条分组说明逐项解释新增、细化，以及转为派生、元数据或描述输出的原因。
 
 ## 打开网页
@@ -35,7 +36,7 @@ python3 -m http.server 8766 --bind 127.0.0.1
 
 - [模型与标签对应总表](docs/research/speech-evidence-space-20261020/模型与标签对应总表.md)
 - [标签版本对比](docs/research/speech-evidence-space-20261020/标签版本对比.md)
-- [当前 Tag Schema](docs/research/speech-evidence-space-20261020/tag_schema.md)
+- [当前 Tag Schema](docs/research/speech-evidence-space-20261020/tag_schema.md) · [跨标签互检定义](docs/research/speech-evidence-space-20261020/tag_schema.md#81-跨标签一致性检查互检链路)
 - [展示页使用说明](docs/research/speech-evidence-space-20261020/visualization/README.md)
 
 修改总表、schema 或对比数据后，重新生成网页数据：

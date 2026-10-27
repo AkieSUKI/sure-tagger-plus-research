@@ -1,8 +1,8 @@
 # 标签、关系与候选紧凑集
 
-日期：2026-10-20。[任务 ID](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/task_coverage.md)、[producer/claim](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_capabilities.md)、[来源](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_survey.md)。本文件是研究表示，**不修改共享 tag-schema 或生产输出合同**。
+日期：2026-10-20。[任务 ID](task_coverage.md)、[producer/claim](model_capabilities.md)、[来源](model_survey.md)。本文件是研究表示，**不修改共享 tag-schema 或生产输出合同**。
 
-现行全量类型目录以 [tag_schema.md](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/tag_schema.md) v0.6 的51类 `t_*` 为准。下文T01–T17是原调查任务族的历史索引，其中embedding/文字规范化等不自动成为现行音频标签；四类 `S_core` 仅指转写子集。v0.6将音频属性与派生路径分开：人数、重叠、切换、语速的直接估计保留相应 `t_*`，D01–D06只约束已有观察的固定计算，不能排除同一属性的另一模型观察。全部15个 `d_*` 的审查见 [d_direct_audit.md](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_direct_audit.md)。
+现行全量类型目录以 [tag_schema.md](tag_schema.md) v0.6 的51类 `t_*` 为准。下文T01–T17是原调查任务族的历史索引，其中embedding/文字规范化等不自动成为现行音频标签；四类 `S_core` 仅指转写子集。v0.6将音频属性与派生路径分开：人数、重叠、切换、语速的直接估计保留相应 `t_*`，D01–D06只约束已有观察的固定计算，不能排除同一属性的另一模型观察。全部15个 `d_*` 的审查见 [d_direct_audit.md](d_direct_audit.md)。
 
 ## 统一观察封装 E0
 
@@ -102,7 +102,7 @@ E0、R01/R02 与派生操作有真实复杂度和错误率。k 只统计按表�
 
 先增加可审计内部 registry/sidecar，不改共享合同。把 raw observation、normalized observation、resolution 和 public view 分开版本。未来公开词时间/事件时间时，明确半开区间、粒度、缺失状态、unit→speaker 关系以及零时长语义；对已有客户维护兼容投影。当前 Plus Planner 只选择既有文字、窗口、配置，原 ASR 不可覆盖；文本纠错可另设候选通道，但需要新的发布合同和验证。共享评测pipeline另有基于transcript复核公开language的明确通道，不能把Plus的冻结策略泛化到所有字段和pipeline；详见schema映射。
 
-完整公开字段（32原始结构字段、2派生字段、12描述字段）与本registry的对应，以及未纳入的房间/性别语义，见[schema_mapping.md](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/schema_mapping.md)。这些未覆盖维度不由T08/T09/T10/T12替代。
+完整公开字段（32原始结构字段、2派生字段、12描述字段）与本registry的对应，以及未纳入的房间/性别语义，见[schema_mapping.md](schema_mapping.md)。这些未覆盖维度不由T08/T09/T10/T12替代。
 
 ## v0.6直接感知补充
 
@@ -115,4 +115,4 @@ E0、R01/R02 与派生操作有真实复杂度和错误率。k 只统计按表�
 | `t_word_count` | 直接声学回归README声明，代码/权重未核实 `[H]` | D06同一原文的tokenizer计数继续保留；音节数不替代词数 |
 | `t_rt60` | BERP盲估候选具体RT60输出链未核实 `[H]` | 同一已有RIR求指标仍为 `d_room_metrics`；Brouhaha `t_c50`早已另存 |
 
-这些类型不改变 `S_core` 的任务范围，也不说明已经增加独立信息维数或完成互证增益实验。P33 torchcrepe的逐帧F0直接复用T10/`t_f0`；原生逐人ASR、独立VAD与事件模型也继续复用既有类型。来源与完整合同见[能力记录](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_capabilities.md)、[审查](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_direct_audit.md)。
+这些类型不改变 `S_core` 的任务范围，也不说明已经增加独立信息维数或完成互证增益实验。P33 torchcrepe的逐帧F0直接复用T10/`t_f0`；原生逐人ASR、独立VAD与事件模型也继续复用既有类型。来源与完整合同见[能力记录](model_capabilities.md)、[审查](d_direct_audit.md)。

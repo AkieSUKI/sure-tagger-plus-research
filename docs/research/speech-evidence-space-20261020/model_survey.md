@@ -1,6 +1,6 @@
 # 上游模型、工具与来源调查
 
-核验日期：2026-10-20。这里“已读”指实际取得的官方原文/代码/许可证或明确标注的本地模型卡快照；不以搜索摘要代替。新增模型均未在本轮推理。完整扩展调查见 [upstream_supplement.md](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/upstream_supplement.md)，本地代码/配置与历史实测见 [local_audit.md](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/local_audit.md)。
+核验日期：2026-10-20。这里“已读”指实际取得的官方原文/代码/许可证或明确标注的本地模型卡快照；不以搜索摘要代替。新增模型均未在本轮推理。完整扩展调查见 [upstream_supplement.md](upstream_supplement.md)，本地代码/配置与历史实测见 [local_audit.md](local_audit.md)。
 
 ## 1. 调查方法与搜索边界
 
@@ -12,7 +12,7 @@ GitHub API 初期可用，随后 rate-limit 403；对已获得的 commit 使用�
 
 ## 2. 核心来源 ledger
 
-下表 S-* 与 [capabilities](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_capabilities.md) 的 claims 对应。checkpoint列指上游/本地模型身份，不与代码revision混用。release_date仅列文档明示值，其余unknown；API updated_at不是模型发布时间。
+下表 S-* 与 [capabilities](model_capabilities.md) 的 claims 对应。checkpoint列指上游/本地模型身份，不与代码revision混用。release_date仅列文档明示值，其余unknown；API updated_at不是模型发布时间。
 
 | source_id / producer | 官方入口与本轮读取 | code revision；checkpoint/release | 代码许可 / 权重许可；核验级别 |
 | --- | --- | --- | --- |
@@ -29,8 +29,8 @@ GitHub API 初期可用，随后 rate-limit 403；对已获得的 commit 使用�
 | S-DNSMOS / P12 | [DNS-Challenge/DNSMOS](https://github.com/microsoft/DNS-Challenge/tree/master/DNSMOS)；README（本地研究档案，未随页面发布：`sources/dnsmos__DNSMOS__README.md`）、local script（本地研究档案，未随页面发布：`sources/dnsmos__DNSMOS__dnsmos_local.py`）、root LICENSE（本地研究档案，未随页面发布：`sources/dnsmos__LICENSE`） | master快照；code/checkpoint/release unknown | root LICENSE为CC-BY-4.0；具体脚本/ONNX独立适用声明unknown，不能称MIT。DNSMOS Pro是另一个项目 |
 | S-Brouhaha / P13 | [marianne-m/brouhaha-vad](https://github.com/marianne-m/brouhaha-vad)；README（本地研究档案，未随页面发布：`sources/brouhaha__README.md`）、LICENSE（本地研究档案，未随页面发布：`sources/brouhaha__LICENSE`）、本地部署说明（本地研究档案，未随页面发布：`sources/brouhaha_weights__README.md`） | code/checkpoint/release unknown | MIT代码；本地README仅为部署说明，并无上游模型卡许可；checkpoint独立条款unknown |
 | S-RecRIR / P14 | [Audio-WestlakeU/Rec-RIR](https://github.com/Audio-WestlakeU/Rec-RIR)；README（本地研究档案，未随页面发布：`sources/recrir__README.md`）、LICENSE（本地研究档案，未随页面发布：`sources/recrir__LICENSE`） | code/checkpoint/release unknown；paper索引2509.15628未读全文 | MIT代码；README有ckpt命令，完整可下载权重/许可未核验 |
-| S-Local / P15–P17 | [local_audit](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/local_audit.md)、inventory与smoke提取（本地研究档案，未随页面发布：`local_artifact_check.json`） | code文件hash在audit；rule/route version分别存；不凭文件名推断训练版本 | 自有/共享适配器及依赖分别核验；本轮不判断未知权重商用许可 |
-| S-Supp / P19–P27 | [扩展调查](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/upstream_supplement.md) 与其27项source ledger | 各repo commit/card revision逐项列；不能继承主表任一版本 | SenseVoice、emotion2vec、openSMILE、CLAP、DiCoW、WeSep、BEATs、Silero、MFA分别登记 |
+| S-Local / P15–P17 | [local_audit](local_audit.md)、inventory与smoke提取（本地研究档案，未随页面发布：`local_artifact_check.json`） | code文件hash在audit；rule/route version分别存；不凭文件名推断训练版本 | 自有/共享适配器及依赖分别核验；本轮不判断未知权重商用许可 |
+| S-Supp / P19–P27 | [扩展调查](upstream_supplement.md) 与其27项source ledger | 各repo commit/card revision逐项列；不能继承主表任一版本 | SenseVoice、emotion2vec、openSMILE、CLAP、DiCoW、WeSep、BEATs、Silero、MFA分别登记 |
 
 ## 3. 实际发现与选型比较
 
@@ -68,7 +68,7 @@ GitHub API 初期可用，随后 rate-limit 403；对已获得的 commit 使用�
 - ASR ITN/标点/disfluency、逐词code-switch、非言语speaker归属、长音频跨窗身份仍需专门GT。公开仓库有接口不能填补这些验证。
 - DNSMOS Pro官方README已读到MOS分布/10s16k建议，但它与本地DNSMOS不是同一个模型；未作为核心替代排名。VoxLingua107/FLEURS等仅用于下一轮数据候选，不声称下载/标注已完成。
 
-已完成的是有出处的能力/合同调查与候选筛选；验证步骤、资源上限、停止条件见 [validation_plan](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/validation_plan.md)。
+已完成的是有出处的能力/合同调查与候选筛选；验证步骤、资源上限、停止条件见 [validation_plan](validation_plan.md)。
 
 ## 6. 总表覆盖补查（v0.5）
 
@@ -88,13 +88,13 @@ GitHub API 初期可用，随后 rate-limit 403；对已获得的 commit 使用�
 
 ## 7. d_*直接感知补查（v0.6）
 
-核验日期：2026-10-20。目标是检查全部15个 `d_*` 是否存在另一音频感知路线，避免把属性可推导误写成只能派生。总览见 [d_direct_audit.md](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_direct_audit.md)，逐请求缓存、hash、失败原因见 sources_direct_audit（本地研究档案，未随页面发布：`sources_direct_audit/`）。本次没有下载权重或运行推理。
+核验日期：2026-10-20。目标是检查全部15个 `d_*` 是否存在另一音频感知路线，避免把属性可推导误写成只能派生。总览见 [d_direct_audit.md](d_direct_audit.md)，逐请求缓存、hash、失败原因见 sources_direct_audit（本地研究档案，未随页面发布：`sources_direct_audit/`）。本次没有下载权重或运行推理。
 
 | 来源 / producer与claim | 实际读取的官方来源 | revision / 许可 / 支持与边界 |
 | --- | --- | --- |
-| S-DA-SpeechBrain / P29 / DA-C01 | [AMI recipe](https://github.com/speechbrain/speechbrain/blob/c0241278f93ef02cd5191f03caf4e5f8e1292bf6/recipes/AMI/Diarization/experiment.py) 与README；[审查及缓存索引](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md) | code `c0241278f93ef02cd5191f03caf4e5f8e1292bf6`；Apache-2.0正文已读，具体encoder权重条款/revision unknown；非oracle cosine eigengap估人数是组合路径，不是单独人数head，分段可能oracle/VAD须明示 |
+| S-DA-SpeechBrain / P29 / DA-C01 | [AMI recipe](https://github.com/speechbrain/speechbrain/blob/c0241278f93ef02cd5191f03caf4e5f8e1292bf6/recipes/AMI/Diarization/experiment.py) 与README；[审查及缓存索引](d_audit_speaker_temporal.md) | code `c0241278f93ef02cd5191f03caf4e5f8e1292bf6`；Apache-2.0正文已读，具体encoder权重条款/revision unknown；非oracle cosine eigengap估人数是组合路径，不是单独人数head，分段可能oracle/VAD须明示 |
 | S-DA-Pyannote-OSD/SCD / P30–P31 / DA-C02–03 | 官方pyannote1.1任务定义、pipeline与训练教程；[OSD task](https://github.com/pyannote/pyannote-audio/blob/ffe9b0b5d3b1f505acbcdfb47995f197aa10ce8b/pyannote/audio/labeling/tasks/overlap_detection.py)；[SCD pipeline](https://github.com/pyannote/pyannote-audio/blob/ffe9b0b5d3b1f505acbcdfb47995f197aa10ce8b/pyannote/audio/pipeline/speaker_change_detection.py)；现行仓库OSD finetune notebook另读 | code `ffe9b0b5d3b1f505acbcdfb47995f197aa10ce8b`；旧版MIT正文已读；checkpoint、权重条款和现代环境兼容未核实。现行教程code `b749285c5cdd4636b2edc7f766f1352c8dde9369` 但内部固定安装3.1.1，需要finetune，不与旧权重混同 |
-| S-DA-SylNet / P32 / DA-C04 | [作者README](https://github.com/shreyas253/SylNet/blob/master/README.md)、[run_SylNet.py](https://github.com/shreyas253/SylNet/blob/master/run_SylNet.py)；[精确输入/输出审查](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_audit_acoustics.md) | 移动分支、code/checkpoint revision unknown；README有MIT式许可与引用要求，权重独立适用范围unknown。音频→整数音节数有源码依据；除窗秒数为本次建议 `[C]`，不是官方native rate |
+| S-DA-SylNet / P32 / DA-C04 | [作者README](https://github.com/shreyas253/SylNet/blob/master/README.md)、[run_SylNet.py](https://github.com/shreyas253/SylNet/blob/master/run_SylNet.py)；[精确输入/输出审查](d_audit_acoustics.md) | 移动分支、code/checkpoint revision unknown；README有MIT式许可与引用要求，权重独立适用范围unknown。音频→整数音节数有源码依据；除窗秒数为本次建议 `[C]`，不是官方native rate |
 | S-DA-torchcrepe / P33 / DA-C05 | [官方README](https://github.com/maxrmorrison/torchcrepe/blob/master/README.md) 的predict、periodicity、filter与silence例子；缓存（本地研究档案，未随页面发布：`sources_direct_audit/acoustic_torchcrepe_README.md`） | code/checkpoint revision unknown；README MIT徽标及权重转换说明已读，LICENSE正文/权重条款未另核验；音频F0轨迹 documented，本地not_run；不自动推出独立voicing |
 | S-DA-candidates / 无确认P | [BiGRU声学词数项目README](https://github.com/CodeWith-AR/Speech-Word-Count-Prediction-using-BiGRU-TensorFlow-TFLite-)；[BERP README](https://github.com/Alizeded/BERP/blob/main/README.md)、推理入口/默认配置 | 词数README blob `555d475cb9bfa7b4d1d4510ea914e772adbb5c11`，非完整code revision；代码/权重/词定义未核实。BERP code/checkpoint unknown，关键e2e/hybrid实现读取失败，无法确认RT60直接头/公式关系；README声明GPL-3.0，许可正文/权重独立条款未核实。两者均 `[H]` |
 | S-DA-related / 相关与排除 | CountNet README/predict；Smart Turn README/inference；VAP README/model；SEP-28k README/树；Sylber README | CountNet最大同时人数≠整段不同人数；Smart Turn右端complete≠全段轮次；VAP未来投射≠已发生回应时延；SEP-28k三人票数≠事件次数，仓库无模型；Sylber类音节segments≠词界。固定revision和许可逐项见三个分报告 |

@@ -1,6 +1,6 @@
 # `d_*` 的直接音频感知路径审查
 
-日期：2026-10-20。逐项核对 v0.5 第4.8节的全部 **15个 `d_*`**，据此更新 v0.6 schema 与模型总表。本轮实际读取模型文档、任务/推理源码及已有缓存；没有下载权重或运行新模型。分项来源见[人数与时间结构](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md)、[声学量](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_audit_acoustics.md)、[内容与事件](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_audit_content_events.md)。
+日期：2026-10-20。逐项核对 v0.5 第4.8节的全部 **15个 `d_*`**，据此更新 v0.6 schema 与模型总表。本轮实际读取模型文档、任务/推理源码及已有缓存；没有下载权重或运行新模型。分项来源见[人数与时间结构](d_audit_speaker_temporal.md)、[声学量](d_audit_acoustics.md)、[内容与事件](d_audit_content_events.md)。
 
 ## 1. 修正后的判断
 
@@ -63,7 +63,7 @@ audio ──SylNet──────> syllable count ──窗秒──> t_speec
 
 ## 5. 来源与验证范围
 
-人数、OSD/SCD、CountNet、Smart Turn、VAP的固定revision、许可证正文及已读材料见[时间结构来源表](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md#5-revision许可证及实际读取范围)。SylNet、Sylber、torchcrepe、BERP的移动分支/版本未知和访问失败见[声学来源表](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_audit_acoustics.md#2-来源缓存与支持边界)。SEP-28k、声学词数、MOSS、PANNs/DASS见[内容来源表](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_audit_content_events.md#6-来源与核查状态)。本地已有VAD证据另见 FireRedVAD README（本地研究档案，未随页面发布：`sources/firevad__README.md`）、Silero README（本地研究档案，未随页面发布：`sources_supplement/silero__README.md`）、Brouhaha README（本地研究档案，未随页面发布：`sources/brouhaha__README.md`）；FireRed示例显式输出 `is_speech/raw_prob`，Brouhaha明确speech/non-speech。
+人数、OSD/SCD、CountNet、Smart Turn、VAP的固定revision、许可证正文及已读材料见[时间结构来源表](d_audit_speaker_temporal.md#5-revision许可证及实际读取范围)。SylNet、Sylber、torchcrepe、BERP的移动分支/版本未知和访问失败见[声学来源表](d_audit_acoustics.md#2-来源缓存与支持边界)。SEP-28k、声学词数、MOSS、PANNs/DASS见[内容来源表](d_audit_content_events.md#6-来源与核查状态)。本地已有VAD证据另见 FireRedVAD README（本地研究档案，未随页面发布：`sources/firevad__README.md`）、Silero README（本地研究档案，未随页面发布：`sources_supplement/silero__README.md`）、Brouhaha README（本地研究档案，未随页面发布：`sources/brouhaha__README.md`）；FireRed示例显式输出 `is_speech/raw_prob`，Brouhaha明确speech/non-speech。
 
 新增来源缓存与逐请求结果位于 sources_direct_audit（本地研究档案，未随页面发布：`sources_direct_audit/`）。根审查的一次BERP镜像请求也失败，记于 root_berp_mirror_manifest.json（本地研究档案，未随页面发布：`sources_direct_audit/root_berp_mirror_manifest.json`），没有将未取得的源码记为已读。
 

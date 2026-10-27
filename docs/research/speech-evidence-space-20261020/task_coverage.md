@@ -1,6 +1,6 @@
 # 任务族与覆盖目标
 
-日期：2026-10-20。研究入口：[总览](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/summary.md)；标签定义：[registry](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/tag_registry.md)；来源：[survey](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_survey.md)。这是有界调研，不是“任意语音任务”的充分性证明。
+日期：2026-10-20。研究入口：[总览](summary.md)；标签定义：[registry](tag_registry.md)；来源：[survey](model_survey.md)。这是有界调研，不是“任意语音任务”的充分性证明。
 
 ## 研究单位与暂定范围
 
@@ -49,4 +49,4 @@
 - 报告每音频分钟的 GPU/CPU 秒、峰值显存、冷/热启动延迟、p50/p95、调用数、失败重试、存储字节与 LLM token 数；一次调用产生多个 tag 只计一次成本。历史 72.6 分钟墙钟包含并发、队列、加载、API，不能作单模型 RTF 排名。
 - 本轮资源范围：公开文档/源码读取、已有 JSON/日志静态检查；未下载大权重、未启动 GPU 或外部 LLM 批量任务。
 
-下一阶段的具体数据、消融和停止条件见 [validation_plan.md](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/validation_plan.md)。
+下一阶段的具体数据、消融和停止条件见 [validation_plan.md](validation_plan.md)。

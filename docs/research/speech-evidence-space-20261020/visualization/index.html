@@ -15,7 +15,7 @@
       <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M7 8C23 8 13 28 29 28M7 28C23 28 13 8 29 8M7 18H29"/><circle cx="7" cy="8" r="3"/><circle cx="7" cy="18" r="3"/><circle cx="7" cy="28" r="3"/><circle cx="29" cy="8" r="3"/><circle cx="29" cy="18" r="3"/><circle cx="29" cy="28" r="3"/></svg>
       <span>声音证据图谱<small>SPEECH EVIDENCE EXPLORER</small></span>
     </a>
-    <nav aria-label="主导航"><button class="nav-tab active" data-view="graph" aria-pressed="true">模型关系图</button><button class="nav-tab" data-view="comparison" aria-pressed="false">标签变化 <span>↗</span></button></nav>
+    <nav aria-label="主导航"><button class="nav-tab active" data-view="graph" aria-pressed="true">模型关系图</button><button class="nav-tab" data-view="checks" aria-pressed="false">跨标签检查 <span>⇄</span></button><button class="nav-tab" data-view="comparison" aria-pressed="false">标签变化 <span>↗</span></button></nav>
     <a class="source-link" href="../模型与标签对应总表.md" target="_blank" rel="noopener">查看总表 ↗</a>
   </header>
 
@@ -41,6 +41,17 @@
         <div class="graph-footer"><div class="legend"><span><i class="line solid"></i>有依据路径</span><span><i class="line dashed"></i>待验证候选</span><span><i class="gap-dot"></i>尚无确认模型</span></div><span id="graph-status" aria-live="polite"></span></div>
         <details class="reading-guide"><summary>如何理解连线与组合条件？</summary><p>连线表示模型参与某条产出路径。总表中逗号连接的模型需要共同选择，斜线分隔的模型任选其一。单条连线不表示这个模型单独就能产出标签。</p><p><b>D</b>：直接接口输出；<b>C</b>：模型组合、适配或确定性后处理；<b>H</b>：权重、任务头、接口或校准尚待验证。带 H 的组合用虚线单独计数；不可调用的旧候选不计入覆盖。∅ 表示还没有确认的产出模型。</p><p>“语音识别模型”“说话人分离模型”等泛称节点代表组合中的角色，具体实现另选，不会自动被其他模型代号替代。同一标签可以有多条路径，但不因此成为互相独立的证据。目标人、逐帧、摘要等限定保留在标签详情中。</p></details>
       </div>
+    </section>
+
+    <section id="checks-view" hidden>
+      <div class="checks-intro">
+        <div><div class="section-kicker">CROSS-TAG CONSISTENCY / 2026.10</div><h2>不同维度，交叉核验。</h2><p>语言与转写、词时间与语音活动、文字归属与说话人时间轴：用不同标签发现冲突和缺失。以下为检查方案；点击标签，可查看提供证据的模型。<a href="../tag_schema.md#81-跨标签一致性检查互检链路" target="_blank" rel="noopener">完整定义 ↗</a></p></div>
+        <div class="checks-legend"><span class="pill">8 组检查方案</span><span>⇄ 核对关系 · 待评测</span></div>
+      </div>
+      <div class="checks-toolbar"><div id="checks-filters" class="filter-pills" aria-label="按检查类型筛选"></div><label class="search-box"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="m12 12 5 5"/></svg><input type="search" id="checks-search" placeholder="搜索标签或检查关系…" aria-label="搜索跨标签检查"></label></div>
+      <p class="result-count" id="checks-result-count" aria-live="polite"></p>
+      <div id="checks-list" class="checks-list"></div>
+      <div class="checks-note"><strong>如何使用</strong><p>先统一音频、时间粒度、说话人匿名 ID 和类别集，再比较重叠、边界误差或冲突样例。相同模型内部的附带字段只能算一致性线索；独立模型、独立真值和明确指标才支持“交叉验证”的强结论。</p></div>
     </section>
 
     <section id="comparison-view" hidden>

@@ -3,7 +3,7 @@
 版本：`speech-evidence-space-20261020.v0.6`  
 状态：`draft / research-sidecar`  
 基线：[共享 `tag-schema.md`](visualization/baseline-tag-schema.md)  
-模型关系：[模型与标签对应总表](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/模型与标签对应总表.md) · [符号版](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/模型与标签对应关系_符号版.md)
+模型关系：[模型与标签对应总表](模型与标签对应总表.md) · [符号版](模型与标签对应关系_符号版.md)
 
 本文只把**描述音频特征的观察**称为 tag，目录包含音频属性、派生路径及其模型证据。本文不会自动修改共享 `tag-schema.md`、生产 JSON 或已有评测字段。
 
@@ -58,7 +58,7 @@ e_*   模型证据：embedding、posterior、帧分数和中间波形，供标�
 
 `t_*` 可以包含从模型帧分数提取的活动或事件区间，也可以包含音频加文本生成的对齐结果；取舍以它们实际描述的声音属性为准。`d_*` 专门表示已有观察的统计、集合运算、固定映射和重排。同一语义类型可同时有直接模型观察和派生路径，类型只计一次；模型观察数与新增声音信息量另行区分，不能将新增类型数解释成数学上的独立维数。不能把“可以从原始波形重新跑模型”当作无损重算，也不能因两个模型输出同名字段就删去其中一份证据。
 
-交叉核验要求语义、时间范围、单位、分母和类别集一致。不同模型可以提供不同观察，但不自动意味着错误独立；同一 checkpoint 的包装接口、同一帧分数的不同阈值和同一时间轴的统计不算多条独立感知。直接检测的结果若无 speaker ID，也不能与指定说话人对的结果直接等同。完整 `d_*` 逐项审查见 [直接感知审查](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_direct_audit.md)。
+交叉核验要求语义、时间范围、单位、分母和类别集一致。不同模型可以提供不同观察，但不自动意味着错误独立；同一 checkpoint 的包装接口、同一帧分数的不同阈值和同一时间轴的统计不算多条独立感知。直接检测的结果若无 speaker ID，也不能与指定说话人对的结果直接等同。完整 `d_*` 逐项审查见 [直接感知审查](d_direct_audit.md)。
 
 ## 3. 统一观察对象
 
@@ -156,7 +156,7 @@ L0 是证据封装元数据，不是音频标签；L1–L5 沿用共享 `tag-sch
 | --- | --- | --- | --- |
 | `t_spk_activity` | `speaker.activity` | speaker/interval | diarizer/MOSS 投影 `native/derived` `[D/C]` |
 | `t_unit_speaker` | `speaker.unit_assignment` | word/segment | 对齐+diarizer 或 MOSS `native/derived` `[D/C]` |
-| `t_speaker_count` | `speaker.count` | clip/segment；指定范围内不同说话人的总数 | 独立音频分段、声纹与自动聚类估计 `[C]`；不把同时人数模型当作整段总人数，见 [审查](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_direct_audit.md) |
+| `t_speaker_count` | `speaker.count` | clip/segment；指定范围内不同说话人的总数 | 独立音频分段、声纹与自动聚类估计 `[C]`；不把同时人数模型当作整段总人数，见 [审查](d_direct_audit.md) |
 | `t_gender` | `speaker.gender` | speaker | 专用分类 head `native/derived` `[D/C]` |
 | `t_same_speaker_candidate` | `speaker.same_speaker_candidate` | pair | 声纹匹配 `derived/hypothesis` `[C/H]` |
 
@@ -190,7 +190,7 @@ overlap_ratio = duration(O) / duration(U)
 
 时间重叠只能描述同时活动，不能单独证明打断、附和、同意或互动意图。
 
-OSD 给出“至少两人同时说话”的区间时，不自动提供参与者；只有与同一范围的全局 `d_overlap` 合同一致才可比较，不能直接替代指定 pair 的交集。SCD 模型检测的声线变化与 continuity/gap 规则生成的轮次切换须先统一边界定义。音节率模型路线无需已有 ASR 文字，但经 ASR/对齐计算的词率仍是 `d_speech_rate`；两者不能仅靠单位换算互证。来源版本与未运行边界见 [直接感知审查](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_direct_audit.md)。
+OSD 给出“至少两人同时说话”的区间时，不自动提供参与者；只有与同一范围的全局 `d_overlap` 合同一致才可比较，不能直接替代指定 pair 的交集。SCD 模型检测的声线变化与 continuity/gap 规则生成的轮次切换须先统一边界定义。音节率模型路线无需已有 ASR 文字，但经 ASR/对齐计算的词率仍是 `d_speech_rate`；两者不能仅靠单位换算互证。来源版本与未运行边界见 [直接感知审查](d_direct_audit.md)。
 
 ### 4.5 L4：Paralinguistic & Non-verbal（副语言层）
 
@@ -252,7 +252,7 @@ L6 只保存能由音频时间轴、可听声源归属和事件/声学观察定�
 
 ### 4.8 可重算视图 `d_*` 与直接感知路径
 
-下表保存计算合同和旧符号兼容索引，**只限定由已有观察重算的路径**，不再宣称相同属性只能是派生值。直接感知使用对应 `t_*`，派生结果继续用 `d_*` 并引用父证据；两者可并存核验。容器、scope 变体、固定补集和类别过滤继续复用已有类型。完整逐项来源与尚未确认的路径见 [直接感知审查](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_direct_audit.md)。
+下表保存计算合同和旧符号兼容索引，**只限定由已有观察重算的路径**，不再宣称相同属性只能是派生值。直接感知使用对应 `t_*`，派生结果继续用 `d_*` 并引用父证据；两者可并存核验。容器、scope 变体、固定补集和类别过滤继续复用已有类型。完整逐项来源与尚未确认的路径见 [直接感知审查](d_direct_audit.md)。
 
 | 派生视图 | 已有观察的固定计算路径 | 音频模型路径与现行标签 | 旧符号去向 |
 | --- | --- | --- | --- |
@@ -359,9 +359,34 @@ v0.5 将 `t_event_speaker_candidate` 泛化为 `t_event_source_candidate`；旧�
 
 语义候选与可用能力分开登记。稳定发布还需 producer 可复现、同域标注或确定性规则、概率校准，以及固定数据上的质量验证；组合路径需要报告依赖失败。消融应同时考察可听信息损失、直接模型观察的补证收益与下游效用。公共字段迁移另按第 7 节执行，工程记录不增加音频维度。`d_*` 路径验证重算一致性、依赖失败和规则版本；对应 `t_*` 模型观察另评感知精度、冲突和错误相关性。
 
+### 8.1 跨标签一致性检查（互检链路）
+
+同一标签由多个 producer 产生，只能说明“多路覆盖”；一个标签约束另一个标签，才是**跨标签一致性检查**。互检用于发现冲突、缺失、越界和错误归属，不把任一标签自动当作另一个标签的真值。当前应区分三种状态：
+
+1. **结构一致**：不需要另一个模型，例如有效词区间须结束晚于开始、落在音频范围内；零时长单元保留文字，但标为缺少可用持续区间。
+2. **跨标签一致**：两个有不同语义或输入的观察满足时间、范围、归属或语义约束，例如音频 LID 与从 ASR 文字推断的语言相符。
+3. **独立验证**：在冻结合同下使用独立真值或人工标注报告指标。高一致率本身不能证明独立性；共同 checkpoint、共同转写、共同 diarizer、同一后验的不同阈值或确定性重算，都应记录为相关证据。
+
+下表是建议实现的互检设计；除后文引用的历史冲突外，尚未完成逐链路评测。记录“检查结果”时使用 `agree`、`conflict`、`insufficient` 或 `unsupported`，并保留双方原始值与来源。
+
+| 互检链路 | 可检查的问题 | 当前定位与边界 |
+| --- | --- | --- |
+| `t_language` ↔ `t_text`（文本语言推断） | FireRedLID 等音频语种观察，是否与 ASR 文本的语言/混语片段一致 | 可发现混语、短音频和路由错误；文本推断继承 ASR 错误，ASR 自带 language 与 ASR text 也不是独立证据。语言冲突不能直接判定哪一路正确。 |
+| `t_text` ↔ `t_word_time` ↔ `t_speech_activity` | 已识别词是否缺少时间、是否越界或落在 VAD 未检出语音的区间 | 结构/时间规则检查。VAD 漏检或对齐错误都可能造成冲突；对齐成功不证明文字正确。区分 native、forced alignment、插值和 missing；均匀插值不计为声学对齐成功。 |
+| `t_word_time` ↔ `t_spk_activity` ↔ `t_unit_speaker` | 词的时间是否与被归属说话人的活动重合，是否被分配给不活动的 speaker | 可检查逐词归属和 overlap 边界；需先统一坐标、重叠规则和匿名 speaker ID。时间相交不能独立证明说话人身份。 |
+| `t_event_interval` ↔ `t_speech_activity` | 说话事件与 VAD 是否重合；歌唱、笑声等差异是否源于类别定义 | 先统一 VAD 是否包含歌唱/非言语人声；音乐可与说话同时出现，不能将其重合作为冲突。只有整段类别而无事件起止时，不能做时间互检。 |
+| `t_event_source_candidate` ↔ `t_spk_activity` | 人声事件的归属候选是否有对应时间范围的说话人证据 | 时间相交只提供候选，不能确定事件由谁发出；diarizer 可能漏掉笑声等非言语人声，未活动不自动排除该人。现有组合不支持非人声声源归属。 |
+| `t_emotion` ↔ `t_f0` / `t_loudness` / `t_jitter` / `t_shimmer` / `t_hnr` | 同一说话人、同一片段的情绪分类与声学变化有何对应 | 用作解释线索，尚无通用的高音/大声与情绪之间的判错规则。需同域基线和标注才能评估关联；两路可能共同受语言、说话人和录音条件影响，也不能推出真实心理状态。 |
+| `t_snr` / `t_mos_*` ↔ `t_text` / `t_word_time` / ASR 覆盖 | 质量下降是否伴随空转写、缺失时间、对齐失败，或参考/人工确认的漏词错词 | 适合做失败诊断和分层分析；无参考时不能将空结果直接算作漏词。MOS 与 SNR 语义不同，质量好不保证识别正确，相关性不等于因果。 |
+| `t_code_switch_span` ↔ `t_language` ↔ `t_text` | 局部语言切换候选是否能在整段语言和文字中找到对应片段 | 可检查切换位置是否自洽；需要片段级标注，整段 LID 或 ASR 的强制语言参数不能替代切换真值。 |
+
+一个可复现的互检记录至少包含：`sample_id`、原音频/裁剪视图、双方 `observation_id` 和 producer、坐标与容差、scope（整段/片段/说话人）、类别 ontology、阈值、parent evidence IDs、结果状态及冲突原因。冲突应保留，不能用 resolver 静默选择一方。以本地 smoke 为例，同一英文片段曾出现 FireRedLID=`sn` 而 ASR 文本倾向 English；这正是需要报告的互检冲突，不是“两个模型共同证明”的案例，详见 [本地审计](local_audit.md#3-firered真实词时间路径与语言来源)。
+
+只有在统一标签合同、时间粒度、说话人范围和独立 GT 后，才可把互检升级为独立验证，并报告准确率/F1、边界误差、覆盖率、共同失败率和错误相关性。互检结果本身用于定位下一步标注或 probe，不计作新增 `t_*` 类型，也不把高 agreement 当作证据独立。
+
 ## 9. 转写任务子集
 
-以下四类与 [tag_registry.md](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/tag_registry.md) 的 T01–T04 对齐，覆盖字幕、逐人转写和结构定位所需的基本内容。它们只约束“谁在何时说什么”，不构成完整音频描述或音频还原的充分集：
+以下四类与 [tag_registry.md](tag_registry.md) 的 T01–T04 对齐，覆盖字幕、逐人转写和结构定位所需的基本内容。它们只约束“谁在何时说什么”，不构成完整音频描述或音频还原的充分集：
 
 ```text
 T_transcription = {
@@ -447,7 +472,7 @@ v0.5将下面四类声音描述纳入研究侧标签目录；其语义定义与�
 
 取值示例：同一钢琴声音流在 `[1.0,1.8)` 同时有约 `261.63 Hz`、`329.63 Hz`、`392.00 Hz` 三个音符；不能压成一条“钢琴存在”区间或一个 F0。
 
-部分支持候选为 Basic Pitch / P28：官方接口输出复调音符的音高、模型起止与 pitch bends，最适合一次一个乐器；不提供逐乐器/声部归属，模型 offset 也未验证符合这里的可听结束协议。本地未运行，不能据此宣称完整类型已覆盖。来源及版本边界见 [模型能力调查](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_capabilities.md)、[总表覆盖补查](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_survey.md#6-总表覆盖补查v05)。
+部分支持候选为 Basic Pitch / P28：官方接口输出复调音符的音高、模型起止与 pitch bends，最适合一次一个乐器；不提供逐乐器/声部归属，模型 offset 也未验证符合这里的可听结束协议。本地未运行，不能据此宣称完整类型已覆盖。来源及版本边界见 [模型能力调查](model_capabilities.md)、[总表覆盖补查](model_survey.md#6-总表覆盖补查v05)。
 
 ### 10.4 `t_spatial_image`：空间声像
 
@@ -470,4 +495,4 @@ v0.3 移出了可重算的文字/人数/时间统计、重叠区间、类别过�
 
 v0.5 新增 `t_spectral_envelope`、`t_phonation`、`t_note_event`、`t_spatial_image` 四类研究侧声音标签，泛化事件到可听声源的归属，并完善实际读音、逐声源声学观察及事件细型的定义。四类新增标签的完整语义支持均为 `[H]`；Basic Pitch 的部分音符输出另有接口依据。语义纳入目录不等于已有 producer 已完整覆盖，未新增模型调用、精度验证或公共字段发布。历史模型调查及能力状态继续按原证据解释。
 
-v0.6 按“音频属性与生成路径分开”复查全部15个 `d_*`。恢复 `t_speaker_count`、`t_overlap_interval`、`t_speaker_change`、`t_speech_rate_value` 四类有来源的音频估计入口，并恢复 `t_word_count`、`t_rt60` 两类待核实候选；目录共51类，不代表51个独立数学维度或已验证能力。原有 `d_*` 仍保存重算路径，已由 `t_text`、`t_f0`、`t_c50`、事件类型等表达的直接感知继续复用。没有新增模型推理或公共输出发布；来源、候选缺口与比较合同见 [审查总览](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_direct_audit.md)。
+v0.6 按“音频属性与生成路径分开”复查全部15个 `d_*`。恢复 `t_speaker_count`、`t_overlap_interval`、`t_speaker_change`、`t_speech_rate_value` 四类有来源的音频估计入口，并恢复 `t_word_count`、`t_rt60` 两类待核实候选；目录共51类，不代表51个独立数学维度或已验证能力。原有 `d_*` 仍保存重算路径，已由 `t_text`、`t_f0`、`t_c50`、事件类型等表达的直接感知继续复用。没有新增模型推理或公共输出发布；来源、候选缺口与比较合同见 [审查总览](d_direct_audit.md)。

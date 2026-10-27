@@ -1,16 +1,16 @@
 # 验证台账与实验设计
 
-日期：2026-10-20。研究对应 [任务](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/task_coverage.md)、[标签](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/tag_registry.md)、[能力](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_capabilities.md)。本轮新增验证为文档/源码/历史 JSON 静态检查及三个不加载模型的纯函数重放，没有声学重跑或大权重下载。
+日期：2026-10-20。研究对应 [任务](task_coverage.md)、[标签](tag_registry.md)、[能力](model_capabilities.md)。本轮新增验证为文档/源码/历史 JSON 静态检查及三个不加载模型的纯函数重放，没有声学重跑或大权重下载。
 
 ## 已有证据与本轮核验范围
 
 | ID / 状态 | 数据、版本和产物 | 已支持结论 | 未支持结论 |
 | --- | --- | --- | --- |
-| V01 / historical observed | 全量 report（本地研究档案，未随页面发布：`../../../runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/report.md`）；302 条 AMI，2/3/4 人=84/120/98，920 个 GT speaker 流、7590.414 秒；run_config/来源详见 [local_audit](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/local_audit.md) | Plus 首轮/最终 cpWER 均约18.10%，逐人得分1.602/2；常规 probe 292样本/340调用，最终引用新 evidence=0、结构改变=0；language review 改路由59条发生在首轮之前 | 不能说 Planner 常规 probe 提高了该轮质量；不能把原版→Plus 全部变化归因 Planner；不外推中文/其它域 |
+| V01 / historical observed | 全量 report（本地研究档案，未随页面发布：`../../../runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/report.md`）；302 条 AMI，2/3/4 人=84/120/98，920 个 GT speaker 流、7590.414 秒；run_config/来源详见 [local_audit](local_audit.md) | Plus 首轮/最终 cpWER 均约18.10%，逐人得分1.602/2；常规 probe 292样本/340调用，最终引用新 evidence=0、结构改变=0；language review 改路由59条发生在首轮之前 | 不能说 Planner 常规 probe 提高了该轮质量；不能把原版→Plus 全部变化归因 Planner；不外推中文/其它域 |
 | V02 / historical replay | timeline replay v2 report（本地研究档案，未随页面发布：`../../../runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019_timeline_replay_v2/report.md`）；`speaker_timeline_derivation_v2.0-shadow.2`，相同302条冻结 initial evidence；回放不调模型/API、不读GT，评分独立读GT | 11字段宏76.50→80.76%；speaker_change 52.85→95.92%；cpWER18.099%不变；162样本切换计数变化、92样本ratio变化，1样本归属变化，cpCER +0.007pp | 这是规则统一的回放结果，非新声学模型收益、非当前代码新正式成绩；字段得分非严格 accuracy |
 | V03 / historical smoke + static audit | specialist_smoke（本地研究档案，未随页面发布：`../../../runs/specialist_smoke/`）；主要同一19.0655秒英文样本；本轮提取 JSON（本地研究档案，未随页面发布：`local_artifact_check.json`）保存输入结果文件 hash | 27资产条目、23 callable、10 healthchecked；Qwen gateway v1有29单位，v2有32单位（3零时长）；Nemotron/DiariZen返回区间 | 不能由一次 smoke 得出 WER、DER、质量校准或本机持续吞吐；库存 false不证明模型永远不可运行 |
-| V04 / static code/log supported | [local_audit](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/local_audit.md) 的 FireRed 日志、worker、ASR源码 | 历史 FireRed forced alignment 失败后均匀插值；wrapper LID 是独立模块；同 checkpoint 多 wrapper不独立；Plus 的零时长处理路径与gateway不同 | 本轮未修复执行代码；不能把旧smoke错误直接扩大为所有版本均失败 |
-| V05 / upstream evidence inspected | sources manifest（本地研究档案，未随页面发布：`sources/manifest.json`）、[supplement](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/upstream_supplement.md)；commit与许可证分开 | 支持具体接口、输出类型、数据/评测合同及许可声明 | 上游 benchmark 不是当前管线通过验证；下载链接存在不代表已下载/运行 |
+| V04 / static code/log supported | [local_audit](local_audit.md) 的 FireRed 日志、worker、ASR源码 | 历史 FireRed forced alignment 失败后均匀插值；wrapper LID 是独立模块；同 checkpoint 多 wrapper不独立；Plus 的零时长处理路径与gateway不同 | 本轮未修复执行代码；不能把旧smoke错误直接扩大为所有版本均失败 |
+| V05 / upstream evidence inspected | sources manifest（本地研究档案，未随页面发布：`sources/manifest.json`）、[supplement](upstream_supplement.md)；commit与许可证分开 | 支持具体接口、输出类型、数据/评测合同及许可声明 | 上游 benchmark 不是当前管线通过验证；下载链接存在不代表已下载/运行 |
 
 三个本地纯函数重放的结果（本地研究档案，未随页面发布：`local_probe_results.json`）和复现脚本（本地研究档案，未随页面发布：`reproduce_local_probes.py`）已保存，运行方式：从项目根目录执行 `python3 docs/research/speech-evidence-space-20261020/reproduce_local_probes.py`。本轮 JSON 检查是重新读取已有产物并计算摘要/hash；这是可重做的静态核验，不能写成新增 GPU probe。没有重新计算完整302条评分，数值引用对应冻结报告与其摘要文件。
 
@@ -54,6 +54,8 @@
 - 拆开“模型新观察质量”“resolver是否接受”“接受后任务收益”。历史340调用0采纳要求先查这三个环节，而非直接加大agent轮次。
 - 若新增正确率/coverage无收益且成本增加，停止该路probe；可先用缓存回放诊断採纳规则，声学反事实仍需真正重跑。
 
+V14 同时覆盖跨标签一致性检查。优先实现四条低成本互检：`t_language↔t_text`、`t_text↔t_word_time↔t_speech_activity`、`t_word_time↔t_spk_activity↔t_unit_speaker`、`t_event_interval↔t_speech_activity`；再按条件加入事件归属、情绪—声学、质量—ASR 和 code-switch 互检。每条记录保留原始 producer、坐标、scope、ontology、阈值和 parent IDs，结果只分 agree/conflict/insufficient/unsupported。互检不得把共同模型、ASR 派生文本、同一 diarizer 或确定性重算当作独立证据；升级为独立验证前必须冻结独立 GT、时间容差和 speaker 对齐规则。
+
 ### V15：条件扩展 — planned，不与核心闭环混算
 
 | 扩展 | 数据/条件与GT | producer候选 | 主要指标、上限及停止依据 |
@@ -72,7 +74,7 @@
 
 ## v0.6直接感知与派生路径对照（planned）
 
-[15项审查](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/d_direct_audit.md)只完成来源与合同核对，以下均未执行，不改变前述历史验证结果。先核权重/代码与单位，再做同音频、同范围的比较；没有相同合同的结果不计为数值互证。
+[15项审查](d_direct_audit.md)只完成来源与合同核对，以下均未执行，不改变前述历史验证结果。先核权重/代码与单位，再做同音频、同范围的比较；没有相同合同的结果不计为数值互证。
 
 | 路线 | 所需GT/条件 | 后续检查与指标 |
 | --- | --- | --- |

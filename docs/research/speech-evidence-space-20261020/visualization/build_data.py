@@ -150,6 +150,84 @@ LAYER_LABELS = {
     "L6": "音频内关系",
 }
 
+# Cross-tag checks are semantic relations between outputs. They are deliberately
+# kept separate from producer rows: a relation is a testable consistency rule,
+# not an assertion that the linked tags are mutually independent evidence.
+CROSS_CHECKS = [
+    {
+        "id": "cc_language_text", "category": "language", "strength": "strong",
+        "title": "音频语言 ↔ 转写文字", "kind": "语义检查",
+        "branches": ["音频 → 独立 LID", "音频 → ASR → 文本语言推断"],
+        "nodes": [{"id": "t_language", "role": "source"}, {"id": "t_text", "role": "result"}],
+        "summary": "用独立的音频语言识别结果检查转写文本的语言是否相符，并标出混语或疑似错误。",
+        "rule": "语言标签与文本语言推断应一致；不一致时保留冲突并检查混语、短音频或识别失败。",
+        "caveat": "ASR 自带 language 字段与文本来自同一模型时只能算内部一致性线索。",
+    },
+    {
+        "id": "cc_text_alignment_activity", "category": "alignment", "strength": "strong",
+        "title": "转写文字 ↔ 词时间 ↔ 语音活动", "kind": "结构 / 时间",
+        "branches": ["音频 → ASR / 对齐器", "音频 → VAD"],
+        "nodes": [{"id": "t_text", "role": "source"}, {"id": "t_word_time", "role": "constraint"}, {"id": "t_speech_activity", "role": "result"}],
+        "summary": "检查每个词是否有有效时间边界，并且落在检测到语音的区间内。",
+        "rule": "有效词时间应满足结束晚于开始并落在音频范围内；统计缺时词、退化零时长、范围越界及语音活动重叠。",
+        "caveat": "原生时间、强制对齐、插值与缺失需分开；静音、重叠及端点阈值可能造成边界差异。",
+    },
+    {
+        "id": "cc_word_speaker", "category": "alignment", "strength": "strong",
+        "title": "词时间 ↔ 说话人活动 ↔ 文字归属", "kind": "时间 / 归属",
+        "branches": ["ASR → 词或片段时间", "音频 → diarizer → 活动区间"],
+        "nodes": [{"id": "t_word_time", "role": "source"}, {"id": "t_spk_activity", "role": "constraint"}, {"id": "t_unit_speaker", "role": "result"}],
+        "summary": "把词的时间与说话人活动区间对齐，检查文字归属是否有对应的声学支持。",
+        "rule": "检查被归属说话人在词区间内是否有活动支持；多人重叠保留歧义，不能凭最大交集确定身份。",
+        "caveat": "匿名 speaker ID 需要先做跨模型映射；重叠语音不宜强行分配给单人。",
+    },
+    {
+        "id": "cc_event_activity", "category": "event", "strength": "medium",
+        "title": "声音事件区间 ↔ 语音活动", "kind": "语义 / 时间",
+        "branches": ["音频 → 事件检测器", "音频 → VAD"],
+        "nodes": [{"id": "t_event_interval", "role": "source"}, {"id": "t_speech_activity", "role": "constraint"}, {"id": "t_event", "role": "result"}],
+        "summary": "检查事件类别和时间区间是否与语音活动相容，区分说话、歌唱与非人声事件。",
+        "rule": "先统一“说话”等类别定义，再比较区间重叠；笑声、歌唱是否计入 VAD 取决于各接口约定。",
+        "caveat": "音乐与说话可以同时存在，事件标签不构成互斥条件；类别集、阈值和时间粒度需统一。",
+    },
+    {
+        "id": "cc_event_speaker", "category": "event", "strength": "medium",
+        "title": "事件区间 ↔ 说话人活动", "kind": "声源候选",
+        "branches": ["音频 → 人声事件检测", "音频 → diarizer"],
+        "nodes": [{"id": "t_event_interval", "role": "source"}, {"id": "t_spk_activity", "role": "constraint"}, {"id": "t_event_source_candidate", "role": "result"}],
+        "summary": "判断人声事件是否能归因到某个可听说话人，支持多人场景中的声源追踪。",
+        "rule": "比较人声事件候选与说话人活动的时间关系；重叠只提供支持线索，多人同时活动保留不确定。",
+        "caveat": "不支持非人声归属；diarizer 可能漏掉笑声等非言语人声，缺少活动不能直接排除某人。",
+    },
+    {
+        "id": "cc_emotion_acoustics", "category": "acoustic", "strength": "weak",
+        "title": "情绪类别 ↔ 基频 / 响度", "kind": "解释线索",
+        "branches": ["音频 → 情绪分类器", "同说话人片段 → 声学特征"],
+        "nodes": [{"id": "t_emotion", "role": "source"}, {"id": "t_f0", "role": "constraint"}, {"id": "t_loudness", "role": "result"}],
+        "summary": "结合基频和感知响度观察情绪分类对应的声学表现，为人工复核提供线索。",
+        "rule": "在统一窗口和说话人范围后分析声学分布；未经校准，不以高低音或响度直接判定情绪冲突。",
+        "caveat": "F0/响度只能提供解释性支持，不能单独证明情绪标签正确。",
+    },
+    {
+        "id": "cc_quality_text", "category": "quality", "strength": "weak",
+        "title": "音质评分 ↔ 转写结果", "kind": "失败诊断",
+        "branches": ["音频 → SNR / MOS 估计", "音频 → ASR / 对齐器"],
+        "nodes": [{"id": "t_snr", "role": "source"}, {"id": "t_mos_ovrl", "role": "constraint"}, {"id": "t_text", "role": "result"}],
+        "summary": "按音质分层观察转写空结果、缺失时间和对齐失败，为识别错误诊断提供线索。",
+        "rule": "按片段对齐质量指标与空结果、缺时词；有参考转写或人工复核时，再分析漏词和错词的关联。",
+        "caveat": "相关性不是因果关系；说话速度、口音和语言本身也会影响 ASR。",
+    },
+    {
+        "id": "cc_code_switch", "category": "language", "strength": "medium",
+        "title": "语言切换片段 ↔ 语言 ↔ 转写文字", "kind": "语义 / 时间",
+        "branches": ["局部片段 → LID", "ASR 文字 + 对齐 → 切换候选"],
+        "nodes": [{"id": "t_code_switch_span", "role": "source"}, {"id": "t_language", "role": "constraint"}, {"id": "t_text", "role": "result"}],
+        "summary": "检查局部语言切换候选，能否在语种观察和转写文字中找到对应片段。",
+        "rule": "将切换候选定位到统一时间轴，核对局部语言及文本；证据不足时保留不确定。",
+        "caveat": "需要片段级标注；整段 LID 或强制语言参数不能替代语言切换真值。",
+    },
+]
+
 
 def plain(text: str) -> str:
     """Keep human-readable source notes without Markdown links/backticks."""
@@ -278,6 +356,9 @@ def build() -> dict:
         }
         if comparison_tags != tags.keys():
             raise ValueError("Comparison/schema mismatch: {}".format(comparison_tags ^ tags.keys()))
+    unknown_check_tags = {node["id"] for check in CROSS_CHECKS for node in check["nodes"]} - tags.keys()
+    if unknown_check_tags:
+        raise ValueError("Unknown cross-check tags: {}".format(unknown_check_tags))
     return {
         "meta": {
             "title": "模型与音频标签 · 证据关系图",
@@ -305,6 +386,7 @@ def build() -> dict:
         "tags": list(tags.values()),
         "rows": rows,
         "comparison": comparison,
+        "crossChecks": CROSS_CHECKS,
     }
 
 

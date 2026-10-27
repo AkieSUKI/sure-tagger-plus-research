@@ -14,7 +14,8 @@
   const rowMap = new Map(data.rows.map((item) => [item.id, item]));
   const layerColors = {L1:'#519a7a', L2:'#7185b7', L3:'#b39763', L4:'#a782a8', L5:'#77a3ac', L6:'#c18c77'};
   const categories = {all:'全部变化',added:'新增语义',refined:'细化 / 新路径',retained:'保留映射',omitted:'未列为音频标签',derived:'转为派生',metadata:'转为元数据',descriptive:'描述性输出',deferred:'继续暂缓'};
-  const state = {selected:new Set(),query:'',layer:'all',focusOnly:false,detailTag:null,category:'all',comparisonQuery:'',view:'graph'};
+  const checkCategories = {all:'全部关系',language:'语言 × 转写',alignment:'时间与归属',event:'事件与活动',acoustic:'声学解释',quality:'质量与结果'};
+  const state = {selected:new Set(),query:'',layer:'all',focusOnly:false,detailTag:null,category:'all',comparisonQuery:'',checkCategory:'all',checksQuery:'',view:'graph'};
   let coverage;
   let drawnEdges = [];
   let drawFrame = 0;
@@ -210,15 +211,38 @@
     $('comparison-list').innerHTML = items.length?items.map((item) => `<article class="change-card" data-change="${esc(item.id)}"><div class="change-card-header"><h3>${esc(item.title)}</h3><span class="category-badge ${esc(item.category)}">${esc(categories[item.category] || item.category)}</span></div><div class="field-mapping"><div><small>旧版字段</small>${item.old_fields.length?item.old_fields.map((field) => `<code>${esc(field)}</code>`).join(''):'<code>未显式定义</code>'}</div><span class="mapping-arrow">→</span><div><small>当前表达 / 去向</small>${item.new_tags.length?item.new_tags.map((field) => tagMap.has(field)?`<button data-jump-tag="${esc(field)}" title="在图中查看 ${esc(field)}">${esc(field)} ↗</button>`:`<code>${esc(field)}</code>`).join(''):'<code>不新增独立音频标签</code>'}</div></div><p>${esc(item.reason)}</p>${item.boundary?`<p class="boundary">${esc(item.boundary)}</p>`:''}<div class="source-links">${(item.sources || []).map(sourceLink).join('')}</div></article>`).join(''):'<div class="empty-state">没有匹配的字段或变化说明。</div>';
   }
 
+  function renderChecks() {
+    const checks = data.crossChecks || [];
+    const matchCategory = (item) => state.checkCategory === 'all' || item.category === state.checkCategory;
+    const query = state.checksQuery.trim().toLowerCase();
+    const matches = (item) => `${item.title} ${item.summary} ${item.rule} ${item.caveat} ${item.nodes.map((node) => `${node.id} ${tagMap.get(node.id)?.label || ''}`).join(' ')}`.toLowerCase().includes(query);
+    $('checks-filters').innerHTML = Object.entries(checkCategories).map(([key,label]) => {
+      const count = checks.filter((item) => key === 'all' || item.category === key).length;
+      return `<button class="${state.checkCategory===key?'active':''}" data-check-category="${key}" aria-pressed="${state.checkCategory===key}">${label}<span>${count}</span></button>`;
+    }).join('');
+    const items = checks.filter((item) => matchCategory(item) && matches(item));
+    $('checks-result-count').textContent = `显示 ${items.length} / ${checks.length} 项跨标签检查 · 用于发现冲突和缺失`;
+    $('checks-list').innerHTML = items.length ? items.map((item) => {
+      const nodes = item.nodes.map((node) => {
+        const tag = tagMap.get(node.id);
+        return `<div class="check-flow-node" style="--check-color:${layerColors[tag?.layer] || '#519a7a'}"><button data-jump-tag="${esc(node.id)}" title="在关系图中查看 ${esc(node.id)}"><i class="flow-dot" aria-hidden="true"></i><span class="flow-label">${esc(tag?.label || node.id)}<code>${esc(node.id)}</code></span></button></div>`;
+      }).join('<span class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 30"><path d="M3 18C12 18 18 8 32 8m-5-4 5 4-5 4M33 12C24 12 18 22 4 22m5-4-5 4 5 4"/></svg></span>');
+      const kind = item.kind || '语义检查';
+      const branches = (item.branches || []).map((branch) => `<span>${esc(branch)}</span>`).join('');
+      return `<article class="check-card"><div class="check-card-header"><h3>${esc(item.title)}</h3><span class="check-kind ${esc(item.strength || '')}">${esc(kind)} · 待评测</span></div><div class="check-flow">${nodes}</div><div class="check-branches">${branches}</div><p>${esc(item.summary)}</p><p class="check-rule"><b>检查思路：</b>${esc(item.rule)}</p><p class="check-caveat"><b>边界：</b>${esc(item.caveat)}</p></article>`;
+    }).join('') : '<div class="empty-state">没有匹配的跨标签关系。试试搜索标签 ID 或含义。</div>';
+  }
+
   function setView(view) {
-    state.view = view === 'comparison'?'comparison':'graph';
+    state.view = view === 'comparison' ? 'comparison' : view === 'checks' ? 'checks' : 'graph';
     $('graph-view').hidden = state.view !== 'graph';
+    $('checks-view').hidden = state.view !== 'checks';
     $('comparison-view').hidden = state.view !== 'comparison';
     document.querySelectorAll('[data-view]').forEach((button) => {
       const active = button.dataset.view === state.view;
       button.classList.toggle('active',active); button.setAttribute('aria-pressed',String(active));
     });
-    if (state.view === 'comparison') renderComparison(); else scheduleDraw();
+    if (state.view === 'comparison') renderComparison(); else if (state.view === 'checks') renderChecks(); else scheduleDraw();
   }
 
   function jumpToTag(id) {
@@ -264,6 +288,7 @@
     }
     else if (target.hasAttribute('data-close-detail')) {state.detailTag=null;renderGraph();renderDetail();}
     else if (target.dataset.category) {state.category=target.dataset.category;renderComparison();}
+    else if (target.dataset.checkCategory) {state.checkCategory=target.dataset.checkCategory;renderChecks();}
     else if (target.dataset.jumpTag) jumpToTag(target.dataset.jumpTag);
   });
   $('preset').addEventListener('change',(event)=>{if(event.target.value)selectRow(event.target.value);});
@@ -273,6 +298,7 @@
   $('layer').addEventListener('change',(event)=>{state.layer=event.target.value;renderGraph();$('graph-scroll').scrollTop=0;});
   $('focus-only').addEventListener('change',(event)=>{state.focusOnly=event.target.checked;renderGraph();$('graph-scroll').scrollTop=0;});
   $('comparison-search').addEventListener('input',(event)=>{state.comparisonQuery=event.target.value;renderComparison();});
+  $('checks-search').addEventListener('input',(event)=>{state.checksQuery=event.target.value;renderChecks();});
   window.addEventListener('hashchange',()=>setView(location.hash.slice(1)));
   new ResizeObserver(scheduleDraw).observe($('graph-canvas'));
   document.fonts.ready.then(scheduleDraw);

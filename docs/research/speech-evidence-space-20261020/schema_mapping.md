@@ -1,6 +1,6 @@
 # 共享 schema 的完整字段映射与合同差异
 
-核对日期：2026-10-20。基准为共享 [tag-schema.md §3](visualization/baseline-tag-schema.md)（原文第282行） 和本轮 [tag_registry.md](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/tag_registry.md)；任务 ID 见 [task_coverage.md](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/task_coverage.md)，producer ID 见 [model_capabilities.md](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/model_capabilities.md)。本文件只审计表示、来源与派生关系，不修改共享合同，也不把接口核验当作声学准确率验证。
+核对日期：2026-10-20。基准为共享 [tag-schema.md §3](visualization/baseline-tag-schema.md)（原文第282行） 和本轮 [tag_registry.md](tag_registry.md)；任务 ID 见 [task_coverage.md](task_coverage.md)，producer ID 见 [model_capabilities.md](model_capabilities.md)。本文件只审计表示、来源与派生关系，不修改共享合同，也不把接口核验当作声学准确率验证。
 
 ## 1. 计数与读表规则
 
@@ -106,7 +106,7 @@ Plus validate_descriptions（本地研究档案，未随页面发布：`/hpc_sto
 
 | 项目 | schema / 共享 main | active Plus 或 compare 实现 | 映射处理 |
 | --- | --- | --- | --- |
-| 决策路由 | `20260906.1`：仅 zh/zh-* MOSS，其他 FireRed ASR+DiariZen | Plus `20261008.1`：zh/en MOSS；other/mixed/unknown Nemotron，独立词文本 Qwen；FireRed 有单人一致性门控 | T01/T03 类型相同，producer/route/父观察不同；不能拼成一个不存在的默认流水线。[local_audit LA-01](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/local_audit.md) |
+| 决策路由 | `20260906.1`：仅 zh/zh-* MOSS，其他 FireRed ASR+DiariZen | Plus `20261008.1`：zh/en MOSS；other/mixed/unknown Nemotron，独立词文本 Qwen；FireRed 有单人一致性门控 | T01/T03 类型相同，producer/route/父观察不同；不能拼成一个不存在的默认流水线。[local_audit LA-01](local_audit.md) |
 | profile pitch | §3 说片内相对音高；§2.2 却写固定140/220Hz、low/mid/high；shared code有 variable | Plus F0 相对有效说话人上中位数，.85/1.15，low/medium/high | schema 自身定义/实现也有张力；必须保留连续 F0与参照。仅把 medium 改成 mid 不能消除绝对/相对差异 |
 | volume / rate | 片内中位 RMS、low/normal/loud/variable；中文 zh_char_per_sec | Plus 平均 RMS、quiet/normal/loud，无 variable；中文 char_per_sec；仅完全 clean 且可靠归属片段计率 | D05 规则版本绑定；不能仅靠枚举重命名宣称等值。profiles.py（本地研究档案，未随页面发布：`/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/profiles.py:139`） |
 | language 发布 | schema 把公开 language 归于 FireRed LID，描述 JSON 只读 | compare resolve_language（本地研究档案，未随页面发布：`/hpc_stor03/sjtu_home/weihan.chen/share/compare/eval/extract_sure_tagger_deepseek_once.py:255`） 有明确的 language_verification 例外；有文本且 verdict 不同、未要求 dependency review 时允许发布新语言 | 这是当前 compare 的特定允许通道，不代表 Plus Planner 可任意改结构。保留原 LID、文本 hash、verified/published language、review状态；派生语言仍是 T04，继承 T01错误 |
@@ -123,7 +123,7 @@ Plus validate_descriptions（本地研究档案，未随页面发布：`/hpc_sto
 
 成本至少同时报 `k_types`、`output_dimensions`、`timeline_intervals`、`relation_edges`、`representation_bytes`、`producer_calls`、模型加载/运行时间和 LLM tokens。T08 的四个 MOS 目标、T06 的527类/三类、T03 的多标签时间轴与 T10/T11 连续参数在同一 ID 下也不能省略分辨率；对比实验应冻结 metric 集合后再比较 k。RT60/C50 共用一份 RIR；Brouhaha 的多任务输出共用一次调用；两个 wrapper 复用同一 LID checkpoint 不增加独立证人。
 
-本轮完成字段全覆盖、源码路径核对、差异登记。未执行 gender/质量/房间模型推理或带 GT 精度验证；本文件没有据代码存在声称这些目标已达到可靠覆盖。下一步先完善研究 registry/sidecar 与合同兼容表，再按 [validation_plan.md](../../../../../../../mnt/cloudstorfs/sjtu_home/huifei.wang/sure-tagger-plus-research/docs/research/speech-evidence-space-20261020/validation_plan.md) 的独立数据/版本口径验证；本文件不自动迁移生产 schema。
+本轮完成字段全覆盖、源码路径核对、差异登记。未执行 gender/质量/房间模型推理或带 GT 精度验证；本文件没有据代码存在声称这些目标已达到可靠覆盖。下一步先完善研究 registry/sidecar 与合同兼容表，再按 [validation_plan.md](validation_plan.md) 的独立数据/版本口径验证；本文件不自动迁移生产 schema。
 
 ## 6. 核对快照与可复核范围
 
