@@ -1,0 +1,1476 @@
+{
+  "source": "本地声音证据图谱与研究文档，2026-10-27",
+  "baseline_preserved_byte_exact": true,
+  "original_sha256": {
+    "docs/research/speech-evidence-space-20261020/task_coverage.md": "3e4d8c90212dec07edf314d00c7f0de3dda5ffd91372b5a52bac6f3b433cb88e",
+    "docs/research/speech-evidence-space-20261020/tag_registry.md": "7fcfc7f168f64e4fcdfd9b30094548cf00df2c62a0527f05a29b9466c4bcdda0",
+    "docs/research/speech-evidence-space-20261020/local_audit.md": "d17e20ed98056219cf753aa870084bb88958c4eeeff61229d51d26db4387387c",
+    "docs/research/speech-evidence-space-20261020/upstream_supplement.md": "7b2901ea06c9487ce8eed729e608961402f0469b6ef00d72592934d967ddc66c",
+    "docs/research/speech-evidence-space-20261020/validation_plan.md": "9e569f018a47f666113418633035559b7cadf5b4f3a5ed0a3e3429e42f9e5724",
+    "docs/research/speech-evidence-space-20261020/模型与标签对应关系_符号版.md": "084bee6b95f77d16eb6d4075482288d845995b2366099d55b8b6392db445cc9d",
+    "docs/research/speech-evidence-space-20261020/tag_schema.md": "99a4c74d0a2b8a157d0cd7be18cc6f231788b95755e0eb05a34d3e7a5412107e",
+    "docs/research/speech-evidence-space-20261020/d_audit_content_events.md": "4ddb11d79494cad6df986eb079bdc296a4ddc30fa58f052f1cd67694a40dcd46",
+    "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md": "6ec1b55bd2daad339390bc1eaaee64d369cfa002c1a5aa6d66fa11290d4ef684",
+    "docs/research/speech-evidence-space-20261020/d_direct_audit.md": "a75ca64df86b5ed3f3256ca58b5b41229b4ac2f1e2b4fd993ef7103e686a8fda",
+    "docs/research/speech-evidence-space-20261020/model_survey.md": "be267a0cc5714bfcac5e5528d34b5e93ca622fa5518bf5cf8ef3189528bfd69c",
+    "docs/research/speech-evidence-space-20261020/model_capabilities.md": "3a63eec2cd06a99a2e8b2ea0df1ab84e08fc8d80f75a8a35b84516ed8202e421",
+    "docs/research/speech-evidence-space-20261020/summary.md": "4572306fbcbbf7e67a142533d94dd7d812ec7ff55c329d7c9350444541d7bd09",
+    "docs/research/speech-evidence-space-20261020/schema_mapping.md": "55cad5bbcbe98f35b2e9e7f4b46fb1c0e33f79fcefdcfa97e097250b8d4c1ee1",
+    "docs/research/speech-evidence-space-20261020/模型与标签对应总表.md": "1b8c0a4c9444f6adbfb9e9d6c072ae00d93b8e062089afd03d3dd870a0a1a18b",
+    "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md": "fd3fbed0c9fde6a9835531a8c4f2dc5c27a077741fd58b2e00335621182ccce1",
+    "docs/research/speech-evidence-space-20261020/标签版本对比.md": "857e6b853eb4df77af80de76130ba6f49d03988a95081e40d4520c3aca027697",
+    "docs/research/speech-evidence-space-20261020/visualization/data.js": "09cf7a9128cfcf54359c75a1cd4b7804177d164ccc4f707f9ba0316cabcfd917",
+    "docs/research/speech-evidence-space-20261020/visualization/schema_comparison.json": "09be844c0d528e4b73cd999bc1b27619c3322293ce6bb36c16b72e7734a7f417",
+    "docs/research/speech-evidence-space-20261020/visualization/app.js": "15e1bfde3dc4feace092e1eb2384bb2f86c10c65719d12ddf36c8fc432457be9",
+    "docs/research/speech-evidence-space-20261020/visualization/build_data.py": "72aa1071449197952fe2eda810210036f3507e0855df2a721edfa6a7b1707b42",
+    "docs/research/speech-evidence-space-20261020/visualization/index.html": "bd0cd16998db6cf00e61302e1711da0a1ddafcc8cfa1767d35e892791fd75328",
+    "docs/research/speech-evidence-space-20261020/visualization/styles.css": "4672b74949453e4266e36a45db36a57355e9e7fe48ff24a2718a18cc8dd263a4",
+    "docs/research/speech-evidence-space-20261020/visualization/baseline-tag-schema.md": "8e1bc7c646e01f2ec6e467a54f9d448bed4c70fcb48e985c137ff695e39c3b29",
+    "docs/research/speech-evidence-space-20261020/visualization/README.md": "f61ab6d0752dab2655a9e5a169b713527b12873aed34920fe814d1552c4cfc5d",
+    "docs/design/语音任务的证据空间与标签基底设计.md": "14d35833b59f6cc5378639cf9fb0218de86f974287ab9e1508898eecb3db0ad0"
+  },
+  "unpublished_local_citations": [
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "PipelineConfig",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/config.py:9"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "resolver.resolve",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/resolver.py:306"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "language.normalize_language",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/language.py:40"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "pipeline._complete_language_route",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/pipeline.py:141"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "resolver.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/resolver.py:384"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "resolver.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/resolver.py:394"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "timeline.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/timeline.py:13"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "firered_asr._DirectFireRedAsrRuntime",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/speaker_v2/firered_asr.py:238"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "fireredasr_aed.get_token_timestamp_torchaudio",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/models/FireRedASR2S/fireredasr2s/fireredasr2/models/fireredasr_aed.py:49"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "asr._get_and_fix_timestamp",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/models/FireRedASR2S/fireredasr2s/fireredasr2/asr.py:188"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "worker_firered_asr.log",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/specialist_smoke/worker_firered_asr.log:1"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "firered_asr.result.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/specialist_smoke/firered_asr.result.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "normalize",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/scripts/audio_tools.py:339"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "audio_tools._config",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/scripts/audio_tools.py:246"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "local_models.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/configs/local_models.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "FireRedAsrClient._attach_language_observation",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/speaker_v2/firered_asr.py:579"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "firered_lid.result.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/specialist_smoke/firered_lid.result.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "firered_asr._normalize_timestamps",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/speaker_v2/firered_asr.py:894"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "backend_worker._spans",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/backend_worker.py:117"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "planner_summary.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/analysis/planner_summary.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "qwen3_asr._DirectQwen3AsrRuntime",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/speaker_v2/qwen3_asr.py:138"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "audio_tools_worker.qwen",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/scripts/audio_tools_worker.py:22"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "qwen3_asr.py:430",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/speaker_v2/qwen3_asr.py:430"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "audio_tools_worker.py:75",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/scripts/audio_tools_worker.py:75"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "audio_tools.py:435",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/scripts/audio_tools.py:435"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "backend_worker.py:203",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/backend_worker.py:203"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "backends.py:79",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/backends.py:79"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "qwen_asr.result.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/specialist_smoke/qwen_asr.result.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "qwen_asr_v2.result.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/specialist_smoke/qwen_asr_v2.result.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "pipeline._lexical_baseline",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/pipeline.py:202"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "DassNoiseTypeClient.estimate",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/sound_field_scene/dass_noise_type_detector.py:200"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "run",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/sound_field_scene/dass_noise_type_detector.py:374"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "dass_categories.py:213",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/sound_field_scene/dass_categories.py:213"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "上游 aed.py",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/models/FireRedVAD/fireredvad/aed.py:91"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "共享 run",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/sound_field_scene/firered_aed_detector.py:218"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "audio_tools.py:393",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/scripts/audio_tools.py:393"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "calculate_profiles",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/profiles.py:139"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "speaker_profile.py",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/speaker_v2/speaker_profile.py:327"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "bfull_0001/run_config.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/plus/samples/bfull_0001/run_config.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "experiment_config.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/plus/experiment_config.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "source_snapshot/backend_config.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/plus/source_snapshot/backend_config.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "input/validation.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/input/validation.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "summary.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/plus/summary.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "planner_summary",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/analysis/planner_summary.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "报告",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/report.md:20"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "replay_summary.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019_timeline_replay_v2/replay_summary.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "replay报告",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019_timeline_replay_v2/report.md:19"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "synthetic_smoke_1019/run_config.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/synthetic_smoke_1019/run_config.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "sure-tagger-plus-v0.0/configs/local_models.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/configs/local_models.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "sure-tagger-plus-v0.0/sure_tagger_plus/config.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/config.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "sure-tagger-plus-v0.0/sure_tagger_plus/pipeline.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/pipeline.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "sure-tagger-plus-v0.0/sure_tagger_plus/backend_worker.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/backend_worker.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "sure-tagger-plus-v0.0/sure_tagger_plus/backends.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/backends.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "sure-tagger-plus-v0.0/sure_tagger_plus/resolver.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/resolver.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "sure-tagger-plus-v0.0/sure_tagger_plus/timeline.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/timeline.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "sure-tagger-plus-v0.0/sure_tagger_plus/profiles.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/profiles.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "sure-tagger-plus-v0.0/sure_tagger_plus/language.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/language.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "scripts/audio_tools.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/scripts/audio_tools.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "scripts/audio_tools_worker.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/scripts/audio_tools_worker.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/specialist_smoke/worker_firered_asr.log",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/specialist_smoke/worker_firered_asr.log"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/specialist_smoke/firered_asr.result.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/specialist_smoke/firered_asr.result.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/specialist_smoke/firered_lid.result.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/specialist_smoke/firered_lid.result.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/specialist_smoke/qwen_asr.result.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/specialist_smoke/qwen_asr.result.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/specialist_smoke/qwen_asr_v2.result.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/specialist_smoke/qwen_asr_v2.result.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/plus/experiment_config.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/plus/experiment_config.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/plus/source_snapshot/backend_config.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/plus/source_snapshot/backend_config.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/plus/samples/bfull_0001/run_config.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/plus/samples/bfull_0001/run_config.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/plus/summary.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/plus/summary.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/analysis/planner_summary.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/analysis/planner_summary.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/input/validation.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/input/validation.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019_timeline_replay_v2/replay_summary.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019_timeline_replay_v2/replay_summary.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "runs/sure-tagger-plus-v0.0/synthetic_smoke_1019/run_config.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/runs/sure-tagger-plus-v0.0/synthetic_smoke_1019/run_config.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "shared/tagger/tools/speaker_v2/firered_asr.py",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/speaker_v2/firered_asr.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "shared/tagger/tools/speaker_v2/qwen3_asr.py",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/speaker_v2/qwen3_asr.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "shared/tagger/tools/speaker_v2/speaker_profile.py",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/speaker_v2/speaker_profile.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "shared/tagger/tools/sound_field_scene/dass_noise_type_detector.py",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/sound_field_scene/dass_noise_type_detector.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "shared/tagger/tools/sound_field_scene/dass_categories.py",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/sound_field_scene/dass_categories.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "shared/tagger/tools/sound_field_scene/firered_aed_detector.py",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/sound_field_scene/firered_aed_detector.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "shared/models/FireRedASR2S/fireredasr2s/fireredasr2/asr.py",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/models/FireRedASR2S/fireredasr2s/fireredasr2/asr.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "shared/models/FireRedASR2S/fireredasr2s/fireredasr2/models/fireredasr_aed.py",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/models/FireRedASR2S/fireredasr2s/fireredasr2/models/fireredasr_aed.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/local_audit.md",
+      "label": "shared/models/FireRedVAD/fireredvad/aed.py",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/models/FireRedVAD/fireredvad/aed.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "ts_asr README",
+      "location": "sources_supplement/ts_asr__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "ts_asr README",
+      "location": "sources_supplement/ts_asr__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "inference.py",
+      "location": "sources_supplement/dicow__inference.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/sensevoice__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "代码",
+      "location": "sources_supplement/sensevoice__model.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/emotion2vec__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/emotion2vec__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "配置",
+      "location": "sources_supplement/opensmile__config__egemaps__v02__eGeMAPSv02.conf"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/clap__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "hook.py",
+      "location": "sources_supplement/clap__src__laion_clap__hook.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/meeteval__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/dscore__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/psds__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/wesep__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/voxconverse__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/alimeeting__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/dcase__recipes__dcase2024_task4_baseline__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/audioset__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "ontology",
+      "location": "sources_supplement/audioset__ontology.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "README",
+      "location": "sources_supplement/emobox__source.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "说明",
+      "location": "sources_supplement/sensevoice_ser_eval__source.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "sources_supplement/manifest.json",
+      "location": "sources_supplement/manifest.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "sensevoice__README.md",
+      "location": "sources_supplement/sensevoice__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "sensevoice__LICENSE",
+      "location": "sources_supplement/sensevoice__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "sensevoice__model.py",
+      "location": "sources_supplement/sensevoice__model.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "emotion2vec__README.md",
+      "location": "sources_supplement/emotion2vec__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "opensmile__README.md",
+      "location": "sources_supplement/opensmile__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "opensmile__LICENSE",
+      "location": "sources_supplement/opensmile__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "opensmile__config__egemaps__v02__eGeMAPSv02.conf",
+      "location": "sources_supplement/opensmile__config__egemaps__v02__eGeMAPSv02.conf"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "clap__README.md",
+      "location": "sources_supplement/clap__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "clap__LICENSE",
+      "location": "sources_supplement/clap__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "clap__src__laion_clap__hook.py",
+      "location": "sources_supplement/clap__src__laion_clap__hook.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "dicow__README.md",
+      "location": "sources_supplement/dicow__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "dicow__LICENSE",
+      "location": "sources_supplement/dicow__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "dicow__inference.py",
+      "location": "sources_supplement/dicow__inference.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "ts_asr__README.md",
+      "location": "sources_supplement/ts_asr__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "ts_asr__LICENSE",
+      "location": "sources_supplement/ts_asr__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "wesep__README.md",
+      "location": "sources_supplement/wesep__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "wesep__LICENSE",
+      "location": "sources_supplement/wesep__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "meeteval__README.md",
+      "location": "sources_supplement/meeteval__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "meeteval__LICENSE",
+      "location": "sources_supplement/meeteval__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "dscore__README.md",
+      "location": "sources_supplement/dscore__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "dscore__LICENSE",
+      "location": "sources_supplement/dscore__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "diarizen__README.md",
+      "location": "sources_supplement/diarizen__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "diarizen__LICENSE",
+      "location": "sources_supplement/diarizen__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "diarizen__MODEL_LICENSE",
+      "location": "sources_supplement/diarizen__MODEL_LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "voxconverse__README.md",
+      "location": "sources_supplement/voxconverse__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "dcase__recipes__dcase2024_task4_baseline__README.md",
+      "location": "sources_supplement/dcase__recipes__dcase2024_task4_baseline__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "dcase__LICENSE",
+      "location": "sources_supplement/dcase__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "psds__README.md",
+      "location": "sources_supplement/psds__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "psds__LICENSE",
+      "location": "sources_supplement/psds__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "audioset__README.md",
+      "location": "sources_supplement/audioset__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "audioset__ontology.json",
+      "location": "sources_supplement/audioset__ontology.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "beats__beats__README.md",
+      "location": "sources_supplement/beats__beats__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "beats__LICENSE",
+      "location": "sources_supplement/beats__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "funasr__README.md",
+      "location": "sources_supplement/funasr__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "funasr__LICENSE",
+      "location": "sources_supplement/funasr__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "whisperx__README.md",
+      "location": "sources_supplement/whisperx__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "whisperx__LICENSE",
+      "location": "sources_supplement/whisperx__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "silero__README.md",
+      "location": "sources_supplement/silero__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "silero__LICENSE",
+      "location": "sources_supplement/silero__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "mfa__README.md",
+      "location": "sources_supplement/mfa__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "mfa__LICENSE",
+      "location": "sources_supplement/mfa__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "alimeeting__README.md",
+      "location": "sources_supplement/alimeeting__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "sensevoice_hf_mirror__README.md",
+      "location": "sources_supplement/sensevoice_hf_mirror__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "emotion2vec_hf_mirror__README.md",
+      "location": "sources_supplement/emotion2vec_hf_mirror__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "clap_hf_mirror__README.md",
+      "location": "sources_supplement/clap_hf_mirror__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "sensevoice_ser_eval__source.md",
+      "location": "sources_supplement/sensevoice_ser_eval__source.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "emobox__source.md",
+      "location": "sources_supplement/emobox__source.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/upstream_supplement.md",
+      "label": "sensevoice_model_license__source.md",
+      "location": "sources_supplement/sensevoice_model_license__source.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/validation_plan.md",
+      "label": "全量 report",
+      "location": "../../../runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019/report.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/validation_plan.md",
+      "label": "timeline replay v2 report",
+      "location": "../../../runs/sure-tagger-plus-v0.0/benchmark_multispeaker_full_1019_timeline_replay_v2/report.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/validation_plan.md",
+      "label": "specialist_smoke",
+      "location": "../../../runs/specialist_smoke/"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/validation_plan.md",
+      "label": "本轮提取 JSON",
+      "location": "local_artifact_check.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/validation_plan.md",
+      "label": "sources manifest",
+      "location": "sources/manifest.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/validation_plan.md",
+      "label": "结果",
+      "location": "local_probe_results.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/validation_plan.md",
+      "label": "复现脚本",
+      "location": "reproduce_local_probes.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_content_events.md",
+      "label": "官方 README 缓存",
+      "location": "sources_direct_audit/content_sep28k_readme.txt:4"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_content_events.md",
+      "label": "content_sep28k_tree.txt",
+      "location": "sources_direct_audit/content_sep28k_tree.txt"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_content_events.md",
+      "label": "StutterNet README",
+      "location": "sources_direct_audit/content_stutternet_readme_decoded.md:2"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_content_events.md",
+      "label": "BiGRU 项目 README",
+      "location": "sources_direct_audit/content_wordcount_readme_decoded.md:5"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_content_events.md",
+      "label": "SylNet README",
+      "location": "sources_direct_audit/content_sylnet_readme_api_decoded.md:41"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_content_events.md",
+      "label": "Sylber README",
+      "location": "sources_direct_audit/content_sylber_readme_api_decoded.md:45"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_content_events.md",
+      "label": "MOSS README",
+      "location": "sources/moss__README.md:56"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_content_events.md",
+      "label": "PANNs README",
+      "location": "sources/panns__README.md:11"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_content_events.md",
+      "label": "DASS README",
+      "location": "sources/dass__README.md:81"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_content_events.md",
+      "label": "content_manifest.json",
+      "location": "sources_direct_audit/content_manifest.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "sources_direct_audit",
+      "location": "sources_direct_audit/"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "README缓存",
+      "location": "sources_direct_audit/acoustic_brouhaha_README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "缓存",
+      "location": "sources_direct_audit/acoustic_berp_README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "推理入口缓存",
+      "location": "sources_direct_audit/acoustic_berp_inference_jointRegressor.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "默认推理配置缓存",
+      "location": "sources_direct_audit/acoustic_berp_inference_config_curl.yaml"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "缓存",
+      "location": "sources_direct_audit/acoustic_torchcrepe_README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "缓存",
+      "location": "sources_direct_audit/acoustic_sylnet_README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "缓存",
+      "location": "sources_direct_audit/acoustic_sylnet_run_SylNet.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "缓存",
+      "location": "sources_direct_audit/acoustic_sylber_README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "既有缓存副本",
+      "location": "sources_direct_audit/acoustic_opensmile_eGeMAPSv02.conf"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "合并manifest",
+      "location": "sources_direct_audit/acoustic_manifest.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "首次来源manifest",
+      "location": "sources_direct_audit/acoustic_manifest_initial.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "后续来源manifest",
+      "location": "sources_direct_audit/acoustic_manifest_followup.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "既有快照复制manifest",
+      "location": "sources_direct_audit/acoustic_manifest_local.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "原始请求",
+      "location": "sources_direct_audit/acoustic_manifest_berp_code.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "blob请求",
+      "location": "sources_direct_audit/acoustic_manifest_berp_blobs.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "限时raw请求",
+      "location": "sources_direct_audit/acoustic_manifest_berp_raw_curl.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "镜像请求",
+      "location": "sources_direct_audit/acoustic_manifest_berp_mirror.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md",
+      "label": "最终官方请求",
+      "location": "sources_direct_audit/acoustic_manifest_berp_final.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_direct_audit.md",
+      "label": "FireRedVAD README",
+      "location": "sources/firevad__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_direct_audit.md",
+      "label": "Silero README",
+      "location": "sources_supplement/silero__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_direct_audit.md",
+      "label": "Brouhaha README",
+      "location": "sources/brouhaha__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_direct_audit.md",
+      "label": "sources_direct_audit",
+      "location": "sources_direct_audit/"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_direct_audit.md",
+      "label": "root_berp_mirror_manifest.json",
+      "location": "sources_direct_audit/root_berp_mirror_manifest.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "main manifest",
+      "location": "sources/manifest.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "local cards",
+      "location": "sources/local_cards_manifest.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "supplement manifest",
+      "location": "sources_supplement/manifest.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "README",
+      "location": "sources/qwen__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "wrapper",
+      "location": "sources/qwen__qwen_asr__inference__qwen3_asr.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "aligner",
+      "location": "sources/qwen__qwen_asr__inference__qwen3_forced_aligner.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "LICENSE",
+      "location": "sources/qwen__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "ASR本地card",
+      "location": "sources/qwen_weights__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "aligner本地card",
+      "location": "sources/aligner_weights__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "README",
+      "location": "sources/moss__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "input",
+      "location": "sources/moss__moss_transcribe_diarize__inference_utils.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "parser",
+      "location": "sources/moss__moss_transcribe_diarize__transcript_parser.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "LICENSE",
+      "location": "sources/moss__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "本地0.9B card",
+      "location": "sources/moss_weights__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "README",
+      "location": "sources/firered__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "LICENSE",
+      "location": "sources/firered__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "README",
+      "location": "sources/firevad__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "LICENSE",
+      "location": "sources/firevad__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "本地模型卡",
+      "location": "sources/nemotron_weights__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "config",
+      "location": "sources/nemotron_weights__config.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "README",
+      "location": "sources/diarizen__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "LICENSE",
+      "location": "sources/diarizen__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "MODEL_LICENSE",
+      "location": "sources/diarizen__MODEL_LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "README",
+      "location": "sources/whisperx__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "alignment",
+      "location": "sources/whisperx__whisperx__alignment.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "diarize",
+      "location": "sources/whisperx__whisperx__diarize.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "LICENSE",
+      "location": "sources/whisperx__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "本地community-1卡",
+      "location": "sources/pyannote_weights__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "README",
+      "location": "sources/dass__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "LICENSE",
+      "location": "sources/dass__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "本地medium卡",
+      "location": "sources/dass_weights__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "README",
+      "location": "sources/panns__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "LICENSE",
+      "location": "sources/panns__LICENSE.MIT"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "README",
+      "location": "sources/dnsmos__DNSMOS__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "local script",
+      "location": "sources/dnsmos__DNSMOS__dnsmos_local.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "root LICENSE",
+      "location": "sources/dnsmos__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "README",
+      "location": "sources/brouhaha__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "LICENSE",
+      "location": "sources/brouhaha__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "本地部署说明",
+      "location": "sources/brouhaha_weights__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "README",
+      "location": "sources/recrir__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "LICENSE",
+      "location": "sources/recrir__LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "inventory与smoke提取",
+      "location": "local_artifact_check.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "sources_direct_audit",
+      "location": "sources_direct_audit/"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_survey.md",
+      "label": "缓存",
+      "location": "sources_direct_audit/acoustic_torchcrepe_README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/model_capabilities.md",
+      "label": "提取JSON",
+      "location": "local_artifact_check.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/summary.md",
+      "label": "重放结果",
+      "location": "local_probe_results.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/summary.md",
+      "label": "复现脚本",
+      "location": "reproduce_local_probes.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/summary.md",
+      "label": "local_probe_results.json",
+      "location": "local_probe_results.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/summary.md",
+      "label": "sources/manifest.json",
+      "location": "sources/manifest.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/summary.md",
+      "label": "supplement manifest",
+      "location": "sources_supplement/manifest.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/summary.md",
+      "label": "review_checks.json",
+      "location": "review_checks.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "canonical_structural",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/compare/eval/extract_sure_tagger_deepseek_once.py:332"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "prompt",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/compare/eval/sure_tagger_deepseek_language_descriptive_prompt.txt:50"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "gender observer",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/backend_worker.py:217"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "local_models.json",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/configs/local_models.json:110"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "validate_descriptions",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/policy.py:286"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "模板约束",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/policy.py:312"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "Brouhaha stage",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/pipelines/tagging.py:1462"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "C50 estimator",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/room_acoustic/c50_estimator.py:32"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "RT60 estimator",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/sure-tagger-main/tagger/tools/room_acoustic/rt60_estimator.py:36"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "audio_tools.normalize",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/scripts/audio_tools.py:381"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "Rec-RIR 分支",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/scripts/audio_tools.py:404"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "profiles.py",
+      "location": "/hpc_stor03/sjtu_home/huifei.wang/小模型智能体化/sure-tagger-plus-v0.0/sure_tagger_plus/profiles.py:139"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/schema_mapping.md",
+      "label": "resolve_language",
+      "location": "/hpc_stor03/sjtu_home/weihan.chen/share/compare/eval/extract_sure_tagger_deepseek_once.py:255"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "代码快照",
+      "location": "sources_direct_audit/speaker_speechbrain_recipes__AMI__Diarization__experiment.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "官方 recipe 说明快照",
+      "location": "sources_direct_audit/speaker_speechbrain_recipes__AMI__Diarization__README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "README 快照",
+      "location": "sources_direct_audit/speaker_countnet_README.md"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "predict.py 快照",
+      "location": "sources_direct_audit/speaker_countnet_predict.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "predict_audio.py 快照",
+      "location": "sources_direct_audit/speaker_countnet_predict_audio.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "task 源码",
+      "location": "sources_direct_audit/speaker_pyannote_legacy_pyannote__audio__labeling__tasks__overlap_detection.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "pipeline 源码",
+      "location": "sources_direct_audit/speaker_pyannote_legacy_pyannote__audio__pipeline__overlap_detection.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "现行仓库的官方 OSD 教程",
+      "location": "sources_direct_audit/speaker_pyannote_tutorials__overlapped_speech_detection.ipynb"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "task 源码",
+      "location": "sources_direct_audit/speaker_pyannote_legacy_pyannote__audio__labeling__tasks__speaker_change_detection.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "pipeline 源码",
+      "location": "sources_direct_audit/speaker_pyannote_legacy_pyannote__audio__pipeline__speaker_change_detection.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "inference.py",
+      "location": "sources_direct_audit/speaker_smartturn_inference.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "模型源码",
+      "location": "sources_direct_audit/speaker_vap_vap__model.py"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "MIT 正文",
+      "location": "sources_direct_audit/speaker_countnet_LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "MIT 正文",
+      "location": "sources_direct_audit/speaker_pyannote_legacy_LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "Apache-2.0 正文",
+      "location": "sources_direct_audit/speaker_speechbrain_LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "BSD-2-Clause 正文",
+      "location": "sources_direct_audit/speaker_smartturn_LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "MIT 正文",
+      "location": "sources_direct_audit/speaker_vap_LICENSE"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "speaker_sources_batch1.json",
+      "location": "sources_direct_audit/speaker_sources_batch1.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "speaker_sources_batch2.json",
+      "location": "sources_direct_audit/speaker_sources_batch2.json"
+    },
+    {
+      "document": "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md",
+      "label": "speaker_sources_batch3.json",
+      "location": "sources_direct_audit/speaker_sources_batch3.json"
+    },
+    {
+      "document": "docs/design/语音任务的证据空间与标签基底设计.md",
+      "label": "多说话人标签推广链路设计.md",
+      "location": "多说话人标签推广链路设计.md"
+    },
+    {
+      "document": "docs/design/语音任务的证据空间与标签基底设计.md",
+      "label": "qwen3asr_readme.txt",
+      "location": "../../research_sources/audio_context_20261010/qwen3asr_readme.txt"
+    },
+    {
+      "document": "docs/design/语音任务的证据空间与标签基底设计.md",
+      "label": "moss_qwen_timeline_icl_memo_20261010.md",
+      "location": "../../research_sources/audio_context_20261010/moss_qwen_timeline_icl_memo_20261010.md"
+    },
+    {
+      "document": "docs/design/语音任务的证据空间与标签基底设计.md",
+      "label": "asr_word_time_training_memo_20261010.md",
+      "location": "../../research_sources/audio_context_20261010/asr_word_time_training_memo_20261010.md"
+    },
+    {
+      "document": "docs/design/语音任务的证据空间与标签基底设计.md",
+      "label": "routeB_diarization_research_20261010.md",
+      "location": "../../research_sources/audio_context_20261010/routeB_diarization_research_20261010.md"
+    },
+    {
+      "document": "docs/design/语音任务的证据空间与标签基底设计.md",
+      "label": "多说话人标签推广链路设计_精简版.md",
+      "location": "多说话人标签推广链路设计_精简版.md"
+    }
+  ],
+  "published_sha256": {
+    ".gitignore": "22de38bbd7fdf07e0566a9abbb89f0073aee981048d85e5202ca24da6643bc66",
+    ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "README.md": "daa3b89245e728925371aaac89744486baf0074d748e8dec5f97aec99a28b0ef",
+    "docs/design/语音任务的证据空间与标签基底设计.md": "ddc6364a755fc66314347b9c3ef25ad1b443c4f2fae5b346c3d484a504752822",
+    "docs/research/speech-evidence-space-20261020/d_audit_acoustics.md": "ec7ea2170dc0b92954ad37fa1206927a544dde5f29c9a2ecda813db0418612fb",
+    "docs/research/speech-evidence-space-20261020/d_audit_content_events.md": "fd6e956597c593236ea635f18c7f89effdcb2ea99d0af6e86ae437a11d051bd8",
+    "docs/research/speech-evidence-space-20261020/d_audit_speaker_temporal.md": "0999b8c5cb7537a16896e29b9b1d09cfdb3afd02469f0341cd0c6320c4f6f349",
+    "docs/research/speech-evidence-space-20261020/d_direct_audit.md": "81a5b4c8909d41934a1b2923d2260cb5fa017daa1f70aef40a6a64c9ff338df9",
+    "docs/research/speech-evidence-space-20261020/local_audit.md": "d77e9c8486d3d844d4c0157ae7d87a39584d4afb0c01d1eddbbb0c241df5aec5",
+    "docs/research/speech-evidence-space-20261020/model_capabilities.md": "7e75394de6639b7d29686f44dda3d554920d938dbb6624fe403b3b6b70341a8e",
+    "docs/research/speech-evidence-space-20261020/model_survey.md": "0c554a1d9a6771fc0921de820e586fea53570bd6d076ed92df45dd98dcd60265",
+    "docs/research/speech-evidence-space-20261020/schema_mapping.md": "852aeea555457dad18d7028fe818963c81d0779b8daec17c59c55919016bed2b",
+    "docs/research/speech-evidence-space-20261020/summary.md": "cb98afa9bc22101d6d881eb30ea6c10323225a39b27656c5e08fb93ba666f6e8",
+    "docs/research/speech-evidence-space-20261020/tag_registry.md": "a14b95d06896cfae189984103158f12deba346bc4732018b90104414fa00b458",
+    "docs/research/speech-evidence-space-20261020/tag_schema.md": "b64ec781aa882d2cb92b0c255c4eb4dfd12545ac5c5e9e113c4641ab90a44215",
+    "docs/research/speech-evidence-space-20261020/task_coverage.md": "493af3ebaeeab0005b8227b2781ba5c6521670f8f6d76cfecfe4da355e141b07",
+    "docs/research/speech-evidence-space-20261020/upstream_supplement.md": "adfac0b9c9540e8f404f2b187d1c963928ebdc015961422697fd891b017cf548",
+    "docs/research/speech-evidence-space-20261020/validation_plan.md": "966c41d1ad5fdd084caa7c0126cf3e7159bf3246a050627b930554b0d31219b4",
+    "docs/research/speech-evidence-space-20261020/visualization/README.md": "201b177be07dfe32d9c70a34eab921036f283b98d5b73aad1cb5bdf6f7826dce",
+    "docs/research/speech-evidence-space-20261020/visualization/app.js": "15e1bfde3dc4feace092e1eb2384bb2f86c10c65719d12ddf36c8fc432457be9",
+    "docs/research/speech-evidence-space-20261020/visualization/baseline-tag-schema.md": "8e1bc7c646e01f2ec6e467a54f9d448bed4c70fcb48e985c137ff695e39c3b29",
+    "docs/research/speech-evidence-space-20261020/visualization/build_data.py": "54cce7282ca4ecaadcde4de219e2cb974fc0e6ccb7c6aa58eebd9ca13c732225",
+    "docs/research/speech-evidence-space-20261020/visualization/data.js": "e015b2bcf85ca0105f213244ccea205783ff0f343bfb004222d25134ae5b964e",
+    "docs/research/speech-evidence-space-20261020/visualization/index.html": "648c6489c4281934cb2054e3b9bfaa9e7b0dc5b357e3e235de0379f87b7ce290",
+    "docs/research/speech-evidence-space-20261020/visualization/schema_comparison.json": "139be4449a949276b5df893667f8a652cce518db1e6392680ab8dcc558276b85",
+    "docs/research/speech-evidence-space-20261020/visualization/styles.css": "ee2d2e7133f81fa787873e0462938206c4d407c888db4a5a15654d0755ca8a44",
+    "docs/research/speech-evidence-space-20261020/标签版本对比.md": "3c8946a894adf9dc011db0c1e612e32df8dc22dcbcfda9300ec070b015a17b8c",
+    "docs/research/speech-evidence-space-20261020/模型与标签对应关系_符号版.md": "5a0e68aa92cc06b9a710b1af3bfbe165fcc77ef1ddffbabbd590cc70ea589f5c",
+    "docs/research/speech-evidence-space-20261020/模型与标签对应总表.md": "c4deadc3f82bcd27ea75a670fe04a5e01c4b1adee7cae8f2c9cde0b428287ec3",
+    "index.html": "3ff8f74fccfff3a504830e8765a84e24244583d52383b781f536a8a424d107fc"
+  }
+}

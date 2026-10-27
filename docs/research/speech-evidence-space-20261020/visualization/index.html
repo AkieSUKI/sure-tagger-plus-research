@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f3">
+  <title>声音证据图谱 · 模型与标签</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#graph" aria-label="声音证据图谱首页">
+      <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M7 8C23 8 13 28 29 28M7 28C23 28 13 8 29 8M7 18H29"/><circle cx="7" cy="8" r="3"/><circle cx="7" cy="18" r="3"/><circle cx="7" cy="28" r="3"/><circle cx="29" cy="8" r="3"/><circle cx="29" cy="18" r="3"/><circle cx="29" cy="28" r="3"/></svg>
+      <span>声音证据图谱<small>SPEECH EVIDENCE EXPLORER</small></span>
+    </a>
+    <nav aria-label="主导航"><button class="nav-tab active" data-view="graph" aria-pressed="true">模型关系图</button><button class="nav-tab" data-view="comparison" aria-pressed="false">标签变化 <span>↗</span></button></nav>
+    <a class="source-link" href="../模型与标签对应总表.md" target="_blank" rel="noopener">查看总表 ↗</a>
+  </header>
+
+  <main>
+    <section class="page-heading">
+      <div><div class="eyebrow"><span class="live-dot"></span> SPEECH EVIDENCE SPACE <span class="version">v0.6</span></div><h1>从模型出发，看见声音的维度<span>。</span></h1><p>组合感知能力，探索模型与音频标签之间的关系。</p></div>
+      <div class="overview" id="overview" aria-label="总表统计"></div>
+    </section>
+
+    <section id="graph-view" class="workspace">
+      <aside class="sidebar">
+        <section class="side-section"><div class="section-kicker">01 / BUILD A COMBINATION</div><h2>选择模型组合</h2><p class="muted">从预设开始，或点击图中模型自由组合。</p><label class="field-label" for="preset">组合预设</label><select id="preset"><option value="">自定义组合</option></select><div class="quick-presets" id="quick-presets"></div><div class="selection-heading"><span>已选模型 <b id="selected-count">0</b></span><button id="clear" class="text-button">清空</button></div><div id="selected-chips" class="selected-chips"></div><button id="export" class="secondary-button">导出当前组合 <span>↓</span></button></section>
+        <section class="side-section coverage-section"><div class="section-kicker">02 / EXPLORE COVERAGE</div><h2>当前标签覆盖</h2><div class="coverage-stats" aria-live="polite"><div><strong id="supported-count">0</strong><span>有依据路径</span></div><div><strong id="candidate-count">0</strong><span>仅候选路径</span></div><div><strong id="remaining-count">51</strong><span>尚未覆盖</span></div></div><div class="coverage-bar"><span id="supported-bar"></span><span id="candidate-bar"></span></div><p class="small-note">覆盖按完整模型组合计算；有依据的路径仍可能需要对齐、后处理或输入条件，不代表已部署或精度通过验证。</p></section>
+        <section class="side-section detail-section" id="detail-panel"><div class="section-kicker">03 / INSPECT THE EVIDENCE</div><h2>查看标签详情</h2><p class="muted">点击右侧标签，查看含义、模型路径与旧版字段的对应关系。</p></section>
+      </aside>
+
+      <div class="graph-panel">
+        <div class="panel-heading"><div><h2>模型与标签的连接</h2><p>实线为有依据的关系，虚线为待验证候选。未选关系淡化显示。</p></div><span class="pill">交互图谱</span></div>
+        <div class="graph-toolbar"><label class="search-box"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="m12 12 5 5"/></svg><input id="graph-search" type="search" placeholder="搜索模型、标签或含义…" aria-label="搜索模型或标签"></label><select id="layer" aria-label="按标签层筛选"><option value="all">全部标签层</option><option value="L1">L1 · 词汇内容</option><option value="L2">L2 · 说话人</option><option value="L3">L3 · 时间结构</option><option value="L4">L4 · 副语言</option><option value="L5">L5 · 声学场景</option><option value="L6">L6 · 音频关系</option></select><label class="toggle-label"><input id="focus-only" type="checkbox">只看当前组合</label></div>
+        <div class="graph-column-headings"><span>MODELS <b id="visible-model-count"></b><small>点击选择 · 可多选</small></span><span class="connection-caption">模型组合 → 音频属性</span><span>TAGS <b id="visible-tag-count"></b><small>点击查看解释</small></span></div>
+        <p class="scroll-hint">左右滑动图谱，查看完整的模型与标签连接 ↔</p>
+        <div class="graph-scroll" id="graph-scroll" tabindex="0" aria-label="模型标签关系图，可滚动"><div id="graph-canvas" class="graph-canvas"><svg id="connections" aria-hidden="true"></svg><div id="model-nodes" class="node-column model-column"></div><div id="tag-nodes" class="node-column tag-column"></div></div><div id="graph-empty" class="empty-state" hidden></div></div>
+        <div class="graph-footer"><div class="legend"><span><i class="line solid"></i>有依据路径</span><span><i class="line dashed"></i>待验证候选</span><span><i class="gap-dot"></i>尚无确认模型</span></div><span id="graph-status" aria-live="polite"></span></div>
+        <details class="reading-guide"><summary>如何理解连线与组合条件？</summary><p>连线表示模型参与某条产出路径。总表中逗号连接的模型需要共同选择，斜线分隔的模型任选其一。单条连线不表示这个模型单独就能产出标签。</p><p><b>D</b>：直接接口输出；<b>C</b>：模型组合、适配或确定性后处理；<b>H</b>：权重、任务头、接口或校准尚待验证。带 H 的组合用虚线单独计数；不可调用的旧候选不计入覆盖。∅ 表示还没有确认的产出模型。</p><p>“语音识别模型”“说话人分离模型”等泛称节点代表组合中的角色，具体实现另选，不会自动被其他模型代号替代。同一标签可以有多条路径，但不因此成为互相独立的证据。目标人、逐帧、摘要等限定保留在标签详情中。</p></details>
+      </div>
+    </section>
+
+    <section id="comparison-view" hidden>
+      <div class="comparison-intro"><div><div class="section-kicker">SCHEMA EVOLUTION / 2026.10.09 → v0.6</div><h2>标签变了什么，为什么？</h2><p id="comparison-summary"></p></div><a href="../标签版本对比.md" target="_blank" rel="noopener" class="secondary-button">完整对比文档 ↗</a></div>
+      <div class="comparison-callouts"><div><span class="callout-icon">＋</span><h3>新增与细化</h3><p>从整段结果扩展到词、时间、声源和交互关系。</p></div><div><span class="callout-icon">⇄</span><h3>移出不等于删除</h3><p>统计、元数据和自然语言描述有各自的保存位置。</p></div><div><span class="callout-icon">∅</span><h3>类型不等于能力</h3><p>51 类标签中，6 类仍没有确认的产出模型。</p></div></div>
+      <div class="comparison-controls"><div id="comparison-filters" class="filter-pills" aria-label="按变化类型筛选"></div><label class="search-box"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="m12 12 5 5"/></svg><input type="search" id="comparison-search" placeholder="搜索新旧字段或原因…" aria-label="搜索标签变化"></label></div>
+      <p class="result-count" id="comparison-result-count" aria-live="polite"></p><div id="comparison-list" class="comparison-list"></div>
+      <div class="source-footer"><strong>对照来源</strong><p>基准：<code>baseline-tag-schema.md</code>（2026-10-09）· <a href="baseline-tag-schema.md" target="_blank" rel="noopener">只读快照 ↗</a></p><p>当前：<a href="../tag_schema.md" target="_blank" rel="noopener">Tag Schema v0.6</a> · <a href="../模型与标签对应总表.md" target="_blank" rel="noopener">模型与标签总表</a> · <a href="../schema_mapping.md" target="_blank" rel="noopener">既有字段映射</a></p></div>
+    </section>
+    <footer class="page-footer"><span>声音证据空间 · 模型 / 标签 / 关系</span><span>数据来自研究总表，可追溯至原始定义 <a href="README.md" target="_blank" rel="noopener">使用说明 ↗</a></span></footer>
+  </main>
+  <div id="toast" role="status" class="toast" hidden></div>
+  <noscript><p class="noscript">请启用 JavaScript 以查看交互图谱。原始数据可在模型与标签总表中阅读。</p></noscript>
+</body>
+</html>
