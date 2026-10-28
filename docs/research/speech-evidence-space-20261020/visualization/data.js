@@ -31,10 +31,13 @@ window.EVIDENCE_DATA = {
       "table": "fc5b689432aeabc9074b2f1e0605e870a8121a2b6204886e0ba628e4c3bd361b",
       "schema": "5d4d54649af2307f0e320ce732b86434681cbb6754bc4220f1d5f0656c6248f0",
       "baseline": "8e1bc7c646e01f2ec6e467a54f9d448bed4c70fcb48e985c137ff695e39c3b29",
-      "comparison": "139be4449a949276b5df893667f8a652cce518db1e6392680ab8dcc558276b85"
+      "comparison": "139be4449a949276b5df893667f8a652cce518db1e6392680ab8dcc558276b85",
+      "sureMatrix": "f6fa0514ba08ecdc2f890b8179f5ff48b41c1ad2fad0751249f518404a9e4b3d",
+      "sureDocument": "02e4c5e2c9983c9f7487b038e6875da4125375aa8776d076303824cfde2b33a5"
     },
     "selectionSemantics": "每行 requirements 的各组须共同满足；每组选择至少一个替代模型。∅ 不可满足；含 H 的关系仍为待验证候选，模型选择不代表已验证能力。",
-    "coverageNote": "51 类是标签名称列举完整；组合满足、候选路径和实际可用能力必须区分。"
+    "coverageNote": "51 类是标签名称列举完整；组合满足、候选路径和实际可用能力必须区分。",
+    "crossValidationNote": "同一标签的多 producer 是覆盖冗余；不同标签间是约束互检。两者都不自动等于真值验证。"
   },
   "models": [
     {
@@ -4335,5 +4338,916 @@ window.EVIDENCE_DATA = {
       "rule": "将切换候选定位到统一时间轴，核对局部语言及文本；证据不足时保留不确定。",
       "caveat": "需要片段级标注；整段 LID 或强制语言参数不能替代语言切换真值。"
     }
-  ]
+  ],
+  "sureCapability": {
+    "profile": "sure-tagger-evidence-profile-v0.1",
+    "as_of": "2026-10-28",
+    "public_schema_unchanged": true,
+    "tag_bench_unchanged": true,
+    "description": "Research-side capability matrix for the frozen SURE-Tagger public tags. Fine-grained research evidence remains in a sidecar.",
+    "status_definitions": {
+      "public_replace": "现有字段的生产路径或同合同替代入口；切换新模型仍需适配和原 Tag-Bench 回归，不代表本轮已验证可以上线。",
+      "public_derived": "Produced by a frozen adapter, deterministic rule, or fixed derivation from public fields.",
+      "conditional_candidate": "Supported by code, model documentation, or prior artifacts, but not locally validated for the target domain.",
+      "sidecar_only": "No equivalent public field, or the candidate output would lose time, relation, source, or representation detail in the public schema.",
+      "deferred": "No confirmed producer, or semantics and ground truth are not yet closed."
+    },
+    "evidence_state_definitions": {
+      "observed": "Observed in an existing local run or artifact.",
+      "code_supported": "The active code path or adapter supports the output; target-domain accuracy is not implied.",
+      "not_run": "The path is known but was not executed in the current investigation.",
+      "planned": "A validation or implementation step is specified but not completed."
+    },
+    "rows": [
+      {
+        "producer": "audio_probe / WAV header / ffprobe",
+        "public_tags": [
+          "basic_acoustic.duration_sec",
+          "basic_acoustic.sample_rate_hz",
+          "basic_acoustic.channels"
+        ],
+        "sidecar_tags": [],
+        "integration_role": [
+          "public_replace"
+        ],
+        "status": "D",
+        "evidence_state": "code_supported",
+        "scope": "原始音频流元数据",
+        "limits": "不是模型推理值；不能用重采样后的 16 kHz 或降混声道替代原始元数据。检查类型、单位和缺失处理即可。",
+        "id": "sure_p01"
+      },
+      {
+        "producer": "native metadata / FireRed VAD",
+        "public_tags": [
+          "basic_acoustic.silence_segments",
+          "basic_acoustic.nonspeech_ratio"
+        ],
+        "sidecar_tags": [],
+        "integration_role": [
+          "public_derived"
+        ],
+        "status": "C",
+        "evidence_state": "observed",
+        "scope": "speech/VAD/utterance/word 区间；无 metadata 时运行 VAD，再取补集",
+        "limits": "silence_segments 实际表示“未检出人类语音”，不是物理静音；音乐和噪声可能在其中。验证区间边界、覆盖率和失败时的 null。",
+        "id": "sure_p02"
+      },
+      {
+        "producer": "Brouhaha",
+        "public_tags": [
+          "audio_quality.snr_db"
+        ],
+        "sidecar_tags": [],
+        "integration_role": [
+          "public_replace"
+        ],
+        "status": "D/C",
+        "evidence_state": "code_supported",
+        "scope": "逐帧 SNR 聚合为整段 dB",
+        "limits": "估计值，不是人工 SNR 真值；需报告帧聚合、噪声域和同域误差。Brouhaha C50 只作内部 evidence。",
+        "id": "sure_p03"
+      },
+      {
+        "producer": "DNSMOS P.835 / P.808",
+        "public_tags": [
+          "audio_quality.dnsmos_sig",
+          "audio_quality.dnsmos_bak",
+          "audio_quality.dnsmos_ovrl",
+          "audio_quality.dnsmos_p808"
+        ],
+        "sidecar_tags": [],
+        "integration_role": [
+          "public_replace"
+        ],
+        "status": "D/C",
+        "evidence_state": "code_supported",
+        "scope": "16 kHz 单声道；9.01 秒窗口、1 秒 hop，短音频循环补足",
+        "limits": "四个分数来自同一次或相关 ONNX 路径，不是四个独立模型证人；需按 MOS 协议评估校准、域外稳定性和短音频偏差。",
+        "id": "sure_p04"
+      },
+      {
+        "producer": "Rec-RIR + 确定性后处理",
+        "public_tags": [
+          "room_acoustic.rt60_sec",
+          "room_acoustic.c50_db"
+        ],
+        "sidecar_tags": [],
+        "integration_role": [
+          "conditional_candidate"
+        ],
+        "status": "C",
+        "evidence_state": "code_supported/not_run",
+        "scope": "音频 → 估计 RIR → T20/Schroeder 或直达后 50 ms 能量比",
+        "limits": "是估计 RIR 的指标，不是房间真值。Brouhaha 内部 C50 不能静默替代公开 C50；需固定 RIR、拟合、失败和参考测量合同。",
+        "id": "sure_p05"
+      },
+      {
+        "producer": "FireRed AED",
+        "public_tags": [
+          "sound_field_scene.speech_music_events",
+          "sound_field_scene.music_present"
+        ],
+        "sidecar_tags": [
+          "t_event_interval"
+        ],
+        "integration_role": [
+          "public_replace",
+          "public_derived",
+          "sidecar_only"
+        ],
+        "status": "D/C",
+        "evidence_state": "code_supported/not_run",
+        "scope": "只公开 speech、singing、music；music_present 从事件数组派生",
+        "limits": "公共数组没有起止时间；singing/music 受默认占比门控。FireRed AED 的事件区间和帧比例只作内部 evidence，事件时间需另存 sidecar。",
+        "id": "sure_p06"
+      },
+      {
+        "producer": "DASS medium + 类别归组 / AED 门控",
+        "public_tags": [
+          "sound_field_scene.external_noise_type",
+          "sound_field_scene.noise_composition"
+        ],
+        "sidecar_tags": [],
+        "integration_role": [
+          "public_replace"
+        ],
+        "status": "D/C",
+        "evidence_state": "code_supported",
+        "scope": "527 类分窗分数 → 六类归组；默认阈值 0.25、每桶 top-3，音乐桶受 AED 门控",
+        "limits": "只有类别/细类和窗口级分数，没有强事件起止；工具返回的固定 confidence 不是校准概率。验证类别宏 F1、误报和门控冲突。",
+        "id": "sure_p07"
+      },
+      {
+        "producer": "MOSS / Nemotron / DiariZen 路由时间线",
+        "public_tags": [
+          "speaker.speaker_count",
+          "speaker.speaker_present",
+          "speaker.multi_speaker",
+          "speaker.speaker_change_count",
+          "speaker.speaker_change",
+          "speaker.overlap_ratio",
+          "speaker.speaker_overlap"
+        ],
+        "sidecar_tags": [],
+        "integration_role": [
+          "public_derived"
+        ],
+        "status": "C",
+        "evidence_state": "observed/code_supported",
+        "scope": "选定 timeline 的匿名 speaker 活动、切换和重叠；present、multi_speaker 等按规则派生",
+        "limits": "speaker_id 是样本内匿名 ID，不是真实身份；不同 route 不能混成一个 producer。按 DER/JER、人数 MAE、overlap F1、change 边界误差分层验证。",
+        "id": "sure_p08"
+      },
+      {
+        "producer": "speaker profile 规则 + 性别模型",
+        "public_tags": [
+          "speaker.profiles"
+        ],
+        "sidecar_tags": [],
+        "integration_role": [
+          "public_derived"
+        ],
+        "status": "C",
+        "evidence_state": "code_supported/not_run",
+        "scope": "同一 decision timeline 上的语速、音高和相对音量画像；gender 另记录版本和来源。",
+        "limits": "pitch/volume 不推出情绪、年龄或身份。代码可能含 profiles[].gender，compare schema 使用 descriptive.speaker_descriptions[].gender；这两条路径尚未对齐，不计作新增公共字段。",
+        "id": "sure_p09"
+      },
+      {
+        "producer": "FireRedASR2-AED / MOSS / Qwen3-ASR 路由",
+        "public_tags": [
+          "speaker.asr_transcript"
+        ],
+        "sidecar_tags": [],
+        "integration_role": [
+          "public_replace"
+        ],
+        "status": "D/C",
+        "evidence_state": "observed",
+        "scope": "语言和人数条件选择 ASR；整段文本，不含时间和 speaker ID",
+        "limits": "route、文本来源和失败原因必须保留；强制 language 是输入条件，不是独立 LID 证据。按语言、重叠、噪声和短音频分别报告 WER/CER。",
+        "id": "sure_p10"
+      },
+      {
+        "producer": "FireRed LID",
+        "public_tags": [
+          "language_content.language"
+        ],
+        "sidecar_tags": [],
+        "integration_role": [
+          "public_replace"
+        ],
+        "status": "D",
+        "evidence_state": "observed",
+        "scope": "整段或满足条件的 speaker clean spans",
+        "limits": "不从 ASR 文本猜语言；需与混语、短片段、无语音分开评估。FireRed ASR wrapper 附带语言若调用同一 FireRed LID checkpoint，不能与独立调用重复计票。",
+        "id": "sure_p11"
+      },
+      {
+        "producer": "文本统计规则 + 固定派生公式",
+        "public_tags": [
+          "language_content.word_count",
+          "language_content.punctuation",
+          "language_content.repetition",
+          "language_content.filler",
+          "deterministic_derived.speaker_change_rate_per_min",
+          "deterministic_derived.filler_ratio"
+        ],
+        "sidecar_tags": [],
+        "integration_role": [
+          "public_derived"
+        ],
+        "status": "C",
+        "evidence_state": "code_supported",
+        "scope": "冻结 text_origin、文本 hash、tokenizer 和规则版本；切换率依赖人数切换统计/时长，filler_ratio 依赖 filler/word_count。",
+        "limits": "文本统计不等于真实声学词数；计数和比例要固定父产物、分母、舍入与 null 语义，不能恢复被 ASR 删除的犹豫。",
+        "id": "sure_p12"
+      },
+      {
+        "producer": "sure-tagger-plus 逐人文本汇总",
+        "public_tags": [
+          "speaker.speaker_transcripts"
+        ],
+        "sidecar_tags": [],
+        "integration_role": [
+          "conditional_candidate"
+        ],
+        "status": "C",
+        "evidence_state": "observed/not_run",
+        "scope": "ASR + 对齐 + diarization + unit-speaker 归属后按人汇总",
+        "limits": "它是汇总 view，不提供完整 who-spoke-when。词时间、归属候选和拒答原因仍放 sidecar，单独评估归属覆盖率和错误。",
+        "id": "sure_p13"
+      },
+      {
+        "producer": "Qwen3-ForcedAligner / FireRed 对齐 / WhisperX / MFA",
+        "public_tags": [],
+        "sidecar_tags": [
+          "t_word_time"
+        ],
+        "integration_role": [
+          "sidecar_only"
+        ],
+        "status": "C/H",
+        "evidence_state": "observed/planned",
+        "scope": "以已有转写和语言为条件，输出词/字区间。",
+        "limits": "各对齐器需同一转写和语言条件。FireRed 插值回退与有效声学对齐分开记录。音素级能力仅见独立 MFA 行。",
+        "id": "sure_p14"
+      },
+      {
+        "producer": "ASR + FireRed LID + 对齐 / 停顿规则",
+        "public_tags": [],
+        "sidecar_tags": [
+          "t_code_switch_span",
+          "t_self_repair_candidate",
+          "t_hesitation_span"
+        ],
+        "integration_role": [
+          "sidecar_only"
+        ],
+        "status": "H",
+        "evidence_state": "planned",
+        "scope": "局部语言切换、自我修正和犹豫的候选片段。",
+        "limits": "需要片段级标注；强制语言回显不是 LID，停顿和重叠也不直接等于犹豫或修正。",
+        "id": "sure_p15"
+      },
+      {
+        "producer": "CAM++ / ECAPA / WeSpeaker + 注册语音 / 阈值",
+        "public_tags": [],
+        "sidecar_tags": [
+          "t_same_speaker_candidate"
+        ],
+        "integration_role": [
+          "sidecar_only"
+        ],
+        "status": "H",
+        "evidence_state": "not_run",
+        "scope": "两段声音的同人候选，保留注册语音、范围与阈值。",
+        "limits": "不改写样本内匿名 ID，不确认真实身份；评估同域 EER、误认/误拒和短片段/重叠/远场。",
+        "id": "sure_p16"
+      },
+      {
+        "producer": "openSMILE eGeMAPSv02 / 声学测量",
+        "public_tags": [],
+        "sidecar_tags": [
+          "t_loudness",
+          "t_voicing",
+          "t_jitter",
+          "t_shimmer",
+          "t_hnr",
+          "t_phonation",
+          "t_spectral_envelope"
+        ],
+        "integration_role": [
+          "sidecar_only"
+        ],
+        "status": "C/H",
+        "evidence_state": "code_supported/planned",
+        "scope": "响度、F0、jitter、shimmer、HNR 等测量；固定增益、单位和窗口。",
+        "limits": "独立 voicing、完整频谱包络和发声方式分类仍未确认；已有特征不能直接当作这些标签已覆盖。",
+        "id": "sure_p17"
+      },
+      {
+        "producer": "emotion2vec+ / SenseVoiceSmall / audEERING 情绪路径",
+        "public_tags": [],
+        "sidecar_tags": [
+          "t_emotion",
+          "t_arousal",
+          "t_valence",
+          "t_stress",
+          "t_engagement"
+        ],
+        "integration_role": [
+          "sidecar_only"
+        ],
+        "status": "H",
+        "evidence_state": "planned",
+        "scope": "离散情绪和连续唤醒度、效价的候选输出。",
+        "limits": "emotion2vec+/SenseVoice 仅各自情绪类别；audEERING 提供 arousal/valence/dominance。stress/engagement 无确认任务头，仍是待研究目标，不能据此宣称覆盖。",
+        "id": "sure_p18"
+      },
+      {
+        "producer": "Basic Pitch",
+        "public_tags": [],
+        "sidecar_tags": [
+          "t_note_event"
+        ],
+        "integration_role": [
+          "sidecar_only"
+        ],
+        "status": "C/H",
+        "evidence_state": "code_supported/planned",
+        "scope": "音符音高、模型 onset/offset 和弯音；建议单乐器输入。",
+        "limits": "不保证逐乐器归属或可听尾音终点；velocity 不等于感知响度，不能代替音乐类别检测。",
+        "id": "sure_p19"
+      },
+      {
+        "producer": "Audio-Mind：autochord / lv-chordia / Tempo-CNN / librosa",
+        "public_tags": [],
+        "sidecar_tags": [
+          "t_chord",
+          "t_tempo",
+          "t_beat",
+          "t_onset"
+        ],
+        "integration_role": [
+          "sidecar_only"
+        ],
+        "status": "H",
+        "evidence_state": "code_supported/planned",
+        "scope": "和弦区间、全局 BPM、节拍和 onset。",
+        "limits": "需固定 wrapper 能力与词表；半速/倍速歧义单独评估；onset 不等于音符识别，谱特征不是完整包络。",
+        "id": "sure_p20"
+      },
+      {
+        "producer": "多通道波形规则 + Brouhaha / DNSMOS",
+        "public_tags": [],
+        "sidecar_tags": [
+          "t_channel_sync_offset",
+          "t_channel_consistency",
+          "t_channel_dropout_candidate",
+          "t_channel_quality_skew"
+        ],
+        "integration_role": [
+          "sidecar_only"
+        ],
+        "status": "C/H",
+        "evidence_state": "planned",
+        "scope": "通道间的延迟、内容一致性、断音和音质差异候选。",
+        "limits": "不产出新的公共字段；channels 只描述声道数。用已知延迟、断音、噪声注入测量误差和误报。",
+        "id": "sure_p21"
+      },
+      {
+        "producer": "FireRed AED 区间 / PANNs SED / BEATs 后处理",
+        "public_tags": [],
+        "sidecar_tags": [
+          "t_event_interval",
+          "t_event_source_candidate"
+        ],
+        "integration_role": [
+          "sidecar_only"
+        ],
+        "status": "C/H",
+        "evidence_state": "planned",
+        "scope": "事件区间候选；来源归属还需另接 diarization/source timeline。",
+        "limits": "公共事件数组由 FireRed AED 发布；本行仅表示事件区间候选，clip 分数不能反推起止，BEATs 需额外检测头。PANNs 已退出公共 pipeline。",
+        "id": "sure_p22"
+      },
+      {
+        "producer": "ASR + 词时间 + speaker timeline + 韵律",
+        "public_tags": [],
+        "sidecar_tags": [
+          "t_interruption_candidate",
+          "t_backchannel_interval",
+          "t_repair_sequence"
+        ],
+        "integration_role": [
+          "sidecar_only"
+        ],
+        "status": "H",
+        "evidence_state": "planned",
+        "scope": "打断、简短回应与对话修正候选。",
+        "limits": "需对话行为标注；overlap 不等于打断，时间重合不证明声源归属。",
+        "id": "sure_p23"
+      },
+      {
+        "producer": "尚无确认 producer",
+        "public_tags": [
+          "room_acoustic.far_field"
+        ],
+        "sidecar_tags": [
+          "t_spatial_image",
+          "t_word_count",
+          "t_rt60"
+        ],
+        "integration_role": [
+          "deferred"
+        ],
+        "status": "∅",
+        "evidence_state": "planned",
+        "scope": "far_field 公共字段保持 null；空间声像、直接声学词数、RT60 盲估为研究目标。",
+        "limits": "不从 SNR、混响或其他相关量猜 far_field；先明确任务、输入范围、标注及运行条件。",
+        "id": "sure_p24"
+      },
+      {
+        "id": "sure_p25",
+        "producer": "MFA（规范音素对齐）",
+        "public_tags": [],
+        "sidecar_tags": [
+          "t_phone_time"
+        ],
+        "integration_role": [
+          "sidecar_only"
+        ],
+        "status": "H",
+        "evidence_state": "not_run",
+        "scope": "已有转写 + 词典 + 语言声学模型 → 规范音素及时间。",
+        "limits": "不判断实际误读、弱化或音素脱落；词典外和语言不支持情况保留缺失。"
+      }
+    ],
+    "artifacts": {
+      "markdown": "SURE-Tagger模型能力对应表.md",
+      "public_schema": "本地研究档案，未随页面发布：../../../../sure-tagger-pigeondan1/compare/docs/tag-schema.md",
+      "tag_bench": "本地研究档案，未随页面发布：../../../../sure-tagger-pigeondan1/compare/docs/benchmark-v1-29-metrics.md",
+      "capability_sources": [
+        "model_capabilities.md",
+        "schema_mapping.md",
+        "validation_plan.md"
+      ]
+    },
+    "counting_note": "公共字段按父字段计数；profiles、punctuation、repetition 不重复展开其子字段。sidecar 标签不计公共覆盖。",
+    "cross_validation": {
+      "data": "visualization/sure_cross_checks.json",
+      "result_states": [
+        "agree",
+        "conflict",
+        "insufficient",
+        "unsupported"
+      ],
+      "validation_status": "planned"
+    },
+    "publication_note": "artifacts 中的公共 schema 与 Tag-Bench 是核对时的跨仓库来源，未随本仓库发布；2026-10-09 baseline-tag-schema.md 仅用于独立的历史对照，不替代当前 schema。"
+  },
+  "sureChecks": {
+    "profile": "sure-tagger-evidence-profile-v0.1",
+    "result_states": [
+      "agree",
+      "conflict",
+      "insufficient",
+      "unsupported"
+    ],
+    "public_schema_unchanged": true,
+    "tag_bench_unchanged": true,
+    "producerChecks": [
+      {
+        "id": "M01",
+        "title": "M01 · speaker.asr_transcript",
+        "public_tags": [
+          "speaker.asr_transcript"
+        ],
+        "field_paths": [
+          "speaker.asr_transcript"
+        ],
+        "branches": [
+          "FireRedASR2-AED ↔ MOSS ↔ Qwen3-ASR；WhisperX 作候选对照"
+        ],
+        "rule": "在共同语言范围内对齐文本，定位增删替换；有参考转写时另算 WER/CER",
+        "caveat": "固定文本规范化、输入音频和语言条件；路由只选中一路不等于已经运行多路。文本一致也可能共同漏词。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "same_tag",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "M02",
+        "title": "M02 · language_content.language",
+        "public_tags": [
+          "language_content.language"
+        ],
+        "field_paths": [
+          "language_content.language"
+        ],
+        "branches": [
+          "FireRed LID ↔ Qwen3-ASR 原生语言输出（language=None）↔ SenseVoiceSmall 语言输出候选"
+        ],
+        "rule": "统一语言码后比较；混语、短句、无语音单列",
+        "caveat": "FireRed ASR wrapper 附带的 FireRed LID 与单独 LID 共用 checkpoint，不能算两票；强制 language 回显不参与比较。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "same_tag",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "M03",
+        "title": "M03 · speaker.speaker_count、speaker.speaker_change_count、speaker.overlap_ratio",
+        "public_tags": [
+          "speaker.speaker_count",
+          "speaker.speaker_change_count",
+          "speaker.overlap_ratio"
+        ],
+        "field_paths": [
+          "speaker.speaker_count",
+          "speaker.speaker_change_count",
+          "speaker.overlap_ratio"
+        ],
+        "branches": [
+          "MOSS 段活动 ↔ Nemotron 帧活动 ↔ DiariZen / pyannote regular timeline → 同一派生规则"
+        ],
+        "rule": "对齐匿名 ID、活动区间后比较人数、切换边界、重叠比例；保留时间线分歧",
+        "caveat": "活动区间只在 sidecar；固定 gap、collar、overlap 分母。MOSS 活动来自联合转写段；pyannote exclusive 视图不能测 overlap；同一时间线派生的布尔字段不增加证人。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "same_tag",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "M04",
+        "title": "M04 · basic_acoustic.silence_segments、basic_acoustic.nonspeech_ratio",
+        "public_tags": [
+          "basic_acoustic.silence_segments",
+          "basic_acoustic.nonspeech_ratio"
+        ],
+        "field_paths": [
+          "basic_acoustic.silence_segments",
+          "basic_acoustic.nonspeech_ratio"
+        ],
+        "branches": [
+          "FireRed VAD ↔ Silero VAD → 语音并集的补集；Brouhaha 活动头为待暴露候选"
+        ],
+        "rule": "比较非语音区间交并比、边界和占比",
+        "caveat": "未检出语音不等于物理静音；统一阈值、最短时长和时间坐标。当前 Brouhaha adapter 未确认保留活动区间，不能按现有 SNR/C50 输出算已覆盖。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "same_tag",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "M05",
+        "title": "M05 · sound_field_scene.speech_music_events、sound_field_scene.external_noise_type、sound_field_scene.noise_composition",
+        "public_tags": [
+          "sound_field_scene.speech_music_events",
+          "sound_field_scene.external_noise_type",
+          "sound_field_scene.noise_composition"
+        ],
+        "field_paths": [
+          "sound_field_scene.speech_music_events",
+          "sound_field_scene.external_noise_type",
+          "sound_field_scene.noise_composition"
+        ],
+        "branches": [
+          "FireRed AED / DASS ↔ PANNs / BEATs 分类头候选 → 冻结类别映射"
+        ],
+        "rule": "分别在三类事件和六类背景声合同内比较类别、漏报和误报",
+        "caveat": "仅比较共有 ontology；公共字段无事件时间。DASS 音乐桶受 AED 门控，需保留门控前分数；PANNs 已退出公共主链路，只作研究对照。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "same_tag",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "M06",
+        "title": "M06 · room_acoustic.c50_db",
+        "public_tags": [
+          "room_acoustic.c50_db"
+        ],
+        "field_paths": [
+          "room_acoustic.c50_db"
+        ],
+        "branches": [
+          "Rec-RIR → RIR 后处理 ↔ Brouhaha 直接估计"
+        ],
+        "rule": "同音频、同 dB 定义下比较 C50 偏差；以参考 RIR/实测值判定误差",
+        "caveat": "Brouhaha C50 仅为内部候选，不自动替换 Rec-RIR 公共值；统计窗口和直达声起点未对齐时不比较。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "same_tag",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "M07",
+        "title": "M07 · speaker.profiles[].pitch",
+        "public_tags": [
+          "speaker.profiles"
+        ],
+        "field_paths": [
+          "speaker.profiles[].pitch"
+        ],
+        "branches": [
+          "现有 profile F0 估计 ↔ torchcrepe / openSMILE → 冻结 profile 聚合"
+        ],
+        "rule": "同一 speaker clean spans 内比较 F0、倍频/半频错误，再比较公开档位",
+        "caveat": "F0 是辅助量，不直接等于公共 pitch 枚举；旧 shared 与 Plus 的档位、参照和规则不同，须选定版本；不能推出性别或情绪。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "same_tag",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "M08",
+        "title": "M08 · speaker.speaker_transcripts",
+        "public_tags": [
+          "speaker.speaker_transcripts"
+        ],
+        "field_paths": [
+          "speaker.speaker_transcripts"
+        ],
+        "branches": [
+          "MOSS 联合段归属 ↔ Qwen3-ASR + ForcedAligner + Nemotron/DiariZen + 归属规则；WhisperX 作候选"
+        ],
+        "rule": "对齐样本内 speaker ID 和文字单位，比较归属分歧、错误率与拒答覆盖率",
+        "caveat": "共享 transcript、aligner 或 diarizer 时记录依赖；最大交集、最近邻与 overlap 拒答合同不同。跨录音声纹“是否同一人”不是本项，不拿 t_same_speaker_candidate 当归属验证。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "same_tag",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      }
+    ],
+    "crossChecks": [
+      {
+        "id": "X01",
+        "title": "X01 · language_content.language ↔ speaker.asr_transcript",
+        "public_tags": [
+          "language_content.language",
+          "speaker.asr_transcript"
+        ],
+        "field_paths": [
+          "language_content.language",
+          "speaker.asr_transcript"
+        ],
+        "branches": [
+          "FireRed 音频 LID ↔ ASR 文本 → 文本语言判断"
+        ],
+        "rule": "比较可判定文本语言与音频语言；不一致时标出候选错路由、混语或转写异常",
+        "caveat": "文本语言继承 ASR 错误；LID 若参与 ASR 路由，两者已有条件依赖。短文本、专名和混语不能强行判冲突。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "consistency_check",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "X02",
+        "title": "X02 · speaker.asr_transcript ↔ basic_acoustic.silence_segments",
+        "public_tags": [
+          "speaker.asr_transcript",
+          "basic_acoustic.silence_segments"
+        ],
+        "field_paths": [
+          "speaker.asr_transcript",
+          "basic_acoustic.silence_segments"
+        ],
+        "branches": [
+          "ASR + aligner 的词/段时间 sidecar ↔ FireRed/Silero VAD"
+        ],
+        "rule": "检查有正时长的文字单位是否大量落入非语音区间；按冻结时间容差定位异常",
+        "caveat": "强制对齐依赖给定文本，不能证明词真的被说过；插值时间、零时长和缺失时间不能算有效定位；冲突可能来自任一路。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "consistency_check",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "X03",
+        "title": "X03 · speaker.speaker_present、speaker.speaker_count ↔ basic_acoustic.nonspeech_ratio",
+        "public_tags": [
+          "speaker.speaker_present",
+          "speaker.speaker_count",
+          "basic_acoustic.nonspeech_ratio"
+        ],
+        "field_paths": [
+          "speaker.speaker_present",
+          "speaker.speaker_count",
+          "basic_acoustic.nonspeech_ratio"
+        ],
+        "branches": [
+          "diarizer 活动并集 sidecar ↔ 另一路 VAD 语音并集"
+        ],
+        "rule": "比较语音覆盖差异，定位“VAD 有语音但 diarizer 无活动”等窗口",
+        "caveat": "若非语音占比本来由同一 timeline 补集生成，只是自检；单个短词、歌声和最短段规则可造成合理差异。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "consistency_check",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "X04",
+        "title": "X04 · speaker.overlap_ratio、speaker.speaker_overlap ↔ speaker.speaker_count、speaker.multi_speaker",
+        "public_tags": [
+          "speaker.overlap_ratio",
+          "speaker.speaker_overlap",
+          "speaker.speaker_count",
+          "speaker.multi_speaker"
+        ],
+        "field_paths": [
+          "speaker.overlap_ratio",
+          "speaker.speaker_overlap",
+          "speaker.speaker_count",
+          "speaker.multi_speaker"
+        ],
+        "branches": [
+          "diarizer → 人数/重叠派生；专用 OSD 可作条件候选"
+        ],
+        "rule": "同一范围且字段已知时，有真实重叠应至少有两人；多人不要求发生重叠。另比较 OSD 与活动求交区间",
+        "caveat": "同 timeline 的 count/overlap 是确定性自检；专用 OSD 的 checkpoint/runtime 尚未核实，不能当成现成第二证人。分母为有效语音并集。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "consistency_check",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "X05",
+        "title": "X05 · sound_field_scene.speech_music_events ↔ sound_field_scene.music_present、sound_field_scene.external_noise_type、sound_field_scene.noise_composition",
+        "public_tags": [
+          "sound_field_scene.speech_music_events",
+          "sound_field_scene.music_present",
+          "sound_field_scene.external_noise_type",
+          "sound_field_scene.noise_composition"
+        ],
+        "field_paths": [
+          "sound_field_scene.speech_music_events",
+          "sound_field_scene.music_present",
+          "sound_field_scene.external_noise_type",
+          "sound_field_scene.noise_composition"
+        ],
+        "branches": [
+          "FireRed AED → 音乐布尔值；DASS / PANNs / BEATs → 音乐类别候选"
+        ],
+        "rule": "当前 SURE 派生路径检查 music_present 与事件数组是否含 music 一致；门控前不同分类器的音乐判断另作互检",
+        "caveat": "AED 与其布尔派生是自检；DASS 门控后与 AED 一致可能是规则造成。singing 不必伴随 music，不能据此报冲突。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "consistency_check",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "X06",
+        "title": "X06 · room_acoustic.c50_db ↔ room_acoustic.rt60_sec",
+        "public_tags": [
+          "room_acoustic.c50_db",
+          "room_acoustic.rt60_sec"
+        ],
+        "field_paths": [
+          "room_acoustic.c50_db",
+          "room_acoustic.rt60_sec"
+        ],
+        "branches": [
+          "Rec-RIR → 同一 RIR 的早晚能量比和衰减拟合"
+        ],
+        "rule": "先检查各自公式、有效值与拟合条件；有参考 RIR 时再核查两指标的联合异常",
+        "caveat": "两值同源且单位不同；“C50 低、RT60 长”只有条件性趋势，不是通用等式或硬冲突规则，也不能推出 room_acoustic.far_field。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "diagnostic",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "X07",
+        "title": "X07 · audio_quality.snr_db、audio_quality.dnsmos_sig、audio_quality.dnsmos_ovrl ↔ speaker.asr_transcript",
+        "public_tags": [
+          "audio_quality.snr_db",
+          "audio_quality.dnsmos_sig",
+          "audio_quality.dnsmos_ovrl",
+          "speaker.asr_transcript"
+        ],
+        "field_paths": [
+          "audio_quality.snr_db",
+          "audio_quality.dnsmos_sig",
+          "audio_quality.dnsmos_ovrl",
+          "speaker.asr_transcript"
+        ],
+        "branches": [
+          "Brouhaha / DNSMOS ↔ 多 ASR 的文本分歧；参考转写仅供评测"
+        ],
+        "rule": "检查噪声或质量较差的窗口是否集中出现转写分歧；用分层 WER/CER 评价诊断价值",
+        "caveat": "低质量不必识别错，高质量不保证识别对；没有同域阈值/GT 时只给复核线索，不能裁决文本。DNSMOS 多分数不是独立证人。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "diagnostic",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      },
+      {
+        "id": "X08",
+        "title": "X08 · deterministic_derived.speaker_change_rate_per_min、deterministic_derived.filler_ratio ↔ 各自父字段",
+        "public_tags": [
+          "deterministic_derived.speaker_change_rate_per_min",
+          "deterministic_derived.filler_ratio",
+          "speaker.speaker_change_count",
+          "basic_acoustic.duration_sec",
+          "language_content.filler",
+          "language_content.word_count"
+        ],
+        "field_paths": [
+          "deterministic_derived.speaker_change_rate_per_min",
+          "deterministic_derived.filler_ratio"
+        ],
+        "branches": [
+          "speaker.speaker_change_count + basic_acoustic.duration_sec；language_content.filler + language_content.word_count → 固定公式"
+        ],
+        "rule": "父字段有效时分别重算 round(count × 60 / duration, 6) 和 round(filler / word_count, 6)，检查分母和缺失语义",
+        "caveat": "**确定性派生自检**，不是多模型互证；filler/word count 还须共享文本 hash、tokenizer 和规则版本。零分母或缺失按冻结合同处理，不补造数值。",
+        "evidence_state": "planned",
+        "check_result": null,
+        "relation_type": "deterministic_check",
+        "sources": [
+          {
+            "label": "能力对应表 §5",
+            "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"
+          }
+        ]
+      }
+    ]
+  }
 };

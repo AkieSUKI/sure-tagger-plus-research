@@ -234,7 +234,8 @@
   }
 
   function setView(view) {
-    state.view = view === 'comparison' ? 'comparison' : view === 'checks' ? 'checks' : 'graph';
+    state.view = ['comparison','checks','graph','sure'].includes(view) ? view : 'sure';
+    $('sure-view').hidden = state.view !== 'sure';
     $('graph-view').hidden = state.view !== 'graph';
     $('checks-view').hidden = state.view !== 'checks';
     $('comparison-view').hidden = state.view !== 'comparison';
@@ -242,7 +243,11 @@
       const active = button.dataset.view === state.view;
       button.classList.toggle('active',active); button.setAttribute('aria-pressed',String(active));
     });
-    if (state.view === 'comparison') renderComparison(); else if (state.view === 'checks') renderChecks(); else scheduleDraw();
+    const sure = state.view === 'sure';
+    document.querySelector('.page-heading').hidden = sure;
+    document.querySelector('.source-link').href = sure ? '../SURE-Tagger模型能力对应表.md' : '../模型与标签对应总表.md';
+    if (sure) window.SureView?.render();
+    else if (state.view === 'comparison') renderComparison(); else if (state.view === 'checks') renderChecks(); else scheduleDraw();
   }
 
   function jumpToTag(id) {

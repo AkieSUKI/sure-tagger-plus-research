@@ -6,16 +6,18 @@
   <meta name="theme-color" content="#f5f6f3">
   <title>声音证据图谱 · 模型与标签</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sure.css">
   <script src="data.js" defer></script>
+  <script src="sure.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#graph" aria-label="声音证据图谱首页">
+    <a class="brand" href="#sure" aria-label="声音证据图谱首页">
       <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M7 8C23 8 13 28 29 28M7 28C23 28 13 8 29 8M7 18H29"/><circle cx="7" cy="8" r="3"/><circle cx="7" cy="18" r="3"/><circle cx="7" cy="28" r="3"/><circle cx="29" cy="8" r="3"/><circle cx="29" cy="18" r="3"/><circle cx="29" cy="28" r="3"/></svg>
       <span>声音证据图谱<small>SPEECH EVIDENCE EXPLORER</small></span>
     </a>
-    <nav aria-label="主导航"><button class="nav-tab active" data-view="graph" aria-pressed="true">模型关系图</button><button class="nav-tab" data-view="checks" aria-pressed="false">跨标签检查 <span>⇄</span></button><button class="nav-tab" data-view="comparison" aria-pressed="false">标签变化 <span>↗</span></button></nav>
+    <nav aria-label="主导航"><button class="nav-tab active" data-view="sure" aria-pressed="true">SURE-Tagger 能力表</button><button class="nav-tab" data-view="graph" aria-pressed="false">研究关系图</button><button class="nav-tab" data-view="checks" aria-pressed="false">研究互检 <span>⇄</span></button><button class="nav-tab" data-view="comparison" aria-pressed="false">研究标签变化</button></nav>
     <a class="source-link" href="../模型与标签对应总表.md" target="_blank" rel="noopener">查看总表 ↗</a>
   </header>
 
@@ -25,7 +27,8 @@
       <div class="overview" id="overview" aria-label="总表统计"></div>
     </section>
 
-    <section id="graph-view" class="workspace">
+    <section id="sure-view" hidden aria-label="SURE-Tagger 公共标签能力与链路互检"></section>
+    <section id="graph-view" class="workspace" hidden>
       <aside class="sidebar">
         <section class="side-section"><div class="section-kicker">01 / BUILD A COMBINATION</div><h2>选择模型组合</h2><p class="muted">从预设开始，或点击图中模型自由组合。</p><label class="field-label" for="preset">组合预设</label><select id="preset"><option value="">自定义组合</option></select><div class="quick-presets" id="quick-presets"></div><div class="selection-heading"><span>已选模型 <b id="selected-count">0</b></span><button id="clear" class="text-button">清空</button></div><div id="selected-chips" class="selected-chips"></div><button id="export" class="secondary-button">导出当前组合 <span>↓</span></button></section>
         <section class="side-section coverage-section"><div class="section-kicker">02 / EXPLORE COVERAGE</div><h2>当前标签覆盖</h2><div class="coverage-stats" aria-live="polite"><div><strong id="supported-count">0</strong><span>有依据路径</span></div><div><strong id="candidate-count">0</strong><span>仅候选路径</span></div><div><strong id="remaining-count">51</strong><span>尚未覆盖</span></div></div><div class="coverage-bar"><span id="supported-bar"></span><span id="candidate-bar"></span></div><p class="small-note">覆盖按完整模型组合计算；有依据的路径仍可能需要对齐、后处理或输入条件，不代表已部署或精度通过验证。</p></section>

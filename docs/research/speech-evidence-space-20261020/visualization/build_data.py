@@ -19,6 +19,8 @@ TABLE = HERE.parent / "模型与标签对应总表.md"
 SCHEMA = HERE.parent / "tag_schema.md"
 BASELINE = HERE / "baseline-tag-schema.md"
 COMPARISON = HERE / "schema_comparison.json"
+SURE_MATRIX = HERE.parent / "SURE-Tagger模型能力对应表.json"
+SURE_DOCUMENT = HERE.parent / "SURE-Tagger模型能力对应表.md"
 
 MODEL_LABELS = {
     "m_qwen_asr": "Qwen3-ASR",
@@ -359,6 +361,8 @@ def build() -> dict:
     unknown_check_tags = {node["id"] for check in CROSS_CHECKS for node in check["nodes"]} - tags.keys()
     if unknown_check_tags:
         raise ValueError("Unknown cross-check tags: {}".format(unknown_check_tags))
+    sure_matrix = json.loads(SURE_MATRIX.read_text(encoding="utf-8"))
+    sure_checks = parse_sure_checks(SURE_DOCUMENT.read_text(encoding="utf-8"), sure_matrix)
     return {
         "meta": {
             "title": "模型与音频标签 · 证据关系图",
@@ -378,16 +382,56 @@ def build() -> dict:
                 "schema": sha256(SCHEMA),
                 "baseline": sha256(BASELINE),
                 "comparison": sha256(COMPARISON),
+                "sureMatrix": sha256(SURE_MATRIX),
+                "sureDocument": sha256(SURE_DOCUMENT),
             },
             "selectionSemantics": "每行 requirements 的各组须共同满足；每组选择至少一个替代模型。∅ 不可满足；含 H 的关系仍为待验证候选，模型选择不代表已验证能力。",
             "coverageNote": "51 类是标签名称列举完整；组合满足、候选路径和实际可用能力必须区分。",
+            "crossValidationNote": "同一标签的多 producer 是覆盖冗余；不同标签间是约束互检。两者都不自动等于真值验证。",
         },
         "models": models,
         "tags": list(tags.values()),
         "rows": rows,
         "comparison": comparison,
         "crossChecks": CROSS_CHECKS,
+        "sureCapability": sure_matrix,
+        "sureChecks": sure_checks,
     }
+
+
+def parse_sure_checks(source: str, matrix: dict) -> dict:
+    """Read the reviewed public-field tables, keeping planned checks unevaluated."""
+    public_fields = {tag for row in matrix["rows"] for tag in row["public_tags"]}
+    checks = {"producerChecks": [], "crossChecks": []}
+    for line in source.splitlines():
+        if not re.match(r"\| [MX]\d{2} ·", line):
+            continue
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) != 5:
+            raise ValueError(f"Expected five columns in SURE check: {line}")
+        check_id = cells[0].split(" ·", 1)[0]
+        raw_paths = re.findall(r"`([^`]+)`", cells[0])
+        tags = list(dict.fromkeys("speaker.profiles" if p.startswith("speaker.profiles[") else p for p in raw_paths))
+        if check_id == "X08":
+            tags += ["speaker.speaker_change_count", "basic_acoustic.duration_sec", "language_content.filler", "language_content.word_count"]
+        if set(tags) - public_fields:
+            raise ValueError(f"Unknown public fields in {check_id}: {set(tags) - public_fields}")
+        if plain(cells[4]) != "planned":
+            raise ValueError(f"A planned comparison cannot be marked evaluated: {check_id}")
+        entry = {
+            "id": check_id, "title": plain(cells[0]), "public_tags": tags,
+            "field_paths": raw_paths, "branches": [plain(cells[1])],
+            "rule": plain(cells[2]), "caveat": plain(cells[3]),
+            "evidence_state": "planned", "check_result": None,
+            "relation_type": "same_tag" if check_id.startswith("M") else "deterministic_check" if check_id == "X08" else "diagnostic" if check_id in {"X06", "X07"} else "consistency_check",
+            "sources": [{"label": "能力对应表 §5", "href": "../SURE-Tagger模型能力对应表.md#5-链路交叉验证"}],
+        }
+        checks["producerChecks" if check_id.startswith("M") else "crossChecks"].append(entry)
+    ids = [entry["id"] for group in checks.values() for entry in group]
+    if not ids or len(ids) != len(set(ids)):
+        raise ValueError("SURE checks must be nonempty with unique IDs")
+    return {"profile": matrix["profile"], "result_states": ["agree", "conflict", "insufficient", "unsupported"],
+            "public_schema_unchanged": True, "tag_bench_unchanged": True, **checks}
 
 
 def main() -> None:
@@ -404,6 +448,7 @@ def main() -> None:
         "window.EVIDENCE_DATA = " + payload + ";\n",
         encoding="utf-8",
     )
+    (HERE / "sure_cross_checks.json").write_text(json.dumps(data["sureChecks"], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     meta = data["meta"]
     print(f"Wrote {output.name}: {meta['rows']} rows, {meta['modelCount']} producers, "
           f"{meta['tagCount']} tags; comparison={'yes' if data['comparison'] is not None else 'no'}")
